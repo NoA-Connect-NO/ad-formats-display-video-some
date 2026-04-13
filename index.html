@@ -164,15 +164,15 @@ footer{text-align:center;font-size:12px;color:var(--text3);padding:2rem;border-t
 // safe: t/b/s are numbers (percent or px), tLabel/bLabel/sLabel are display strings, isPercent flag
 const F=[
   // ── GOOGLE DISPLAY (includes Responsive) ───────────────────────────────
-  {id:1,cat:"Google Display",badge:"b-google",name:"Medium rectangle",w:300,h:250,ratio:"6:5",device:"All",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:6,b:6,s:6,tL:"6px",bL:"6px",sL:"6px",pct:false},note:"Highest fill rate — works in articles, sidebars and mobile. The default pick for most campaigns.",src:"https://support.google.com/google-ads/answer/7031480"},
-  {id:2,cat:"Google Display",badge:"b-google",name:"Leaderboard",w:728,h:90,ratio:"728:90",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:5,b:5,s:8,tL:"5px",bL:"5px",sL:"8px",pct:false},note:"Top of page on desktop. Very common but limited mobile reach.",src:"https://support.google.com/google-ads/answer/7031480"},
-  {id:3,cat:"Google Display",badge:"b-google",name:"Large rectangle",w:336,h:280,ratio:"6:5",device:"All",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:6,b:6,s:6,tL:"6px",bL:"6px",sL:"6px",pct:false},note:"Slightly better CTR than 300×250 in content areas.",src:"https://support.google.com/google-ads/answer/7031480"},
-  {id:4,cat:"Google Display",badge:"b-google",name:"Half page",w:300,h:600,ratio:"1:2",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:10,b:10,s:8,tL:"10px",bL:"10px",sL:"8px",pct:false},note:"High impact, strong brand visibility. Common in sidebars on premium publishers.",src:"https://support.google.com/google-ads/answer/7031480"},
-  {id:5,cat:"Google Display",badge:"b-google",name:"Wide skyscraper",w:160,h:600,ratio:"4:15",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:8,b:8,s:6,tL:"8px",bL:"8px",sL:"6px",pct:false},note:"Sidebar placement, common on news and editorial sites.",src:"https://support.google.com/google-ads/answer/7031480"},
-  {id:6,cat:"Google Display",badge:"b-google",name:"Billboard",w:970,h:250,ratio:"97:25",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:8,b:8,s:12,tL:"8px",bL:"8px",sL:"12px",pct:false},note:"Premium large-format, typically at the top of premium publisher pages.",src:"https://support.google.com/google-ads/answer/7031480"},
-  {id:7,cat:"Google Display",badge:"b-google",name:"Large mobile banner",w:320,h:100,ratio:"16:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:4,b:4,s:6,tL:"4px",bL:"4px",sL:"6px",pct:false},note:"Mobile web, above the fold. Preferred over the slim 320×50.",src:"https://support.google.com/google-ads/answer/7031480"},
-  {id:8,cat:"Google Display",badge:"b-google",name:"Mobile banner",w:320,h:50,ratio:"32:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:3,b:3,s:5,tL:"3px",bL:"3px",sL:"5px",pct:false},note:"Slim mobile banner. Most compact option.",src:"https://support.google.com/google-ads/answer/7031480"},
-  {id:20,cat:"Google Display",badge:"b-responsive",name:"Responsive display ad",w:null,h:null,ratio:null,device:"All",
+  {id:1,cat:"Google Display & Video",badge:"b-google",name:"Medium rectangle",w:300,h:250,ratio:"6:5",device:"All",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:6,b:6,s:6,tL:"6px",bL:"6px",sL:"6px",pct:false},note:"Highest fill rate — works in articles, sidebars and mobile. The default pick for most campaigns.",src:"https://support.google.com/google-ads/answer/7031480"},
+  {id:2,cat:"Google Display & Video",badge:"b-google",name:"Leaderboard",w:728,h:90,ratio:"728:90",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:5,b:5,s:8,tL:"5px",bL:"5px",sL:"8px",pct:false},note:"Top of page on desktop. Very common but limited mobile reach.",src:"https://support.google.com/google-ads/answer/7031480"},
+  {id:3,cat:"Google Display & Video",badge:"b-google",name:"Large rectangle",w:336,h:280,ratio:"6:5",device:"All",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:6,b:6,s:6,tL:"6px",bL:"6px",sL:"6px",pct:false},note:"Slightly better CTR than 300×250 in content areas.",src:"https://support.google.com/google-ads/answer/7031480"},
+  {id:4,cat:"Google Display & Video",badge:"b-google",name:"Half page",w:300,h:600,ratio:"1:2",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:10,b:10,s:8,tL:"10px",bL:"10px",sL:"8px",pct:false},note:"High impact, strong brand visibility. Common in sidebars on premium publishers.",src:"https://support.google.com/google-ads/answer/7031480"},
+  {id:5,cat:"Google Display & Video",badge:"b-google",name:"Wide skyscraper",w:160,h:600,ratio:"4:15",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:8,b:8,s:6,tL:"8px",bL:"8px",sL:"6px",pct:false},note:"Sidebar placement, common on news and editorial sites.",src:"https://support.google.com/google-ads/answer/7031480"},
+  {id:6,cat:"Google Display & Video",badge:"b-google",name:"Billboard",w:970,h:250,ratio:"97:25",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:8,b:8,s:12,tL:"8px",bL:"8px",sL:"12px",pct:false},note:"Premium large-format, typically at the top of premium publisher pages.",src:"https://support.google.com/google-ads/answer/7031480"},
+  {id:7,cat:"Google Display & Video",badge:"b-google",name:"Large mobile banner",w:320,h:100,ratio:"16:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:4,b:4,s:6,tL:"4px",bL:"4px",sL:"6px",pct:false},note:"Mobile web, above the fold. Preferred over the slim 320×50.",src:"https://support.google.com/google-ads/answer/7031480"},
+  {id:8,cat:"Google Display & Video",badge:"b-google",name:"Mobile banner",w:320,h:50,ratio:"32:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:3,b:3,s:5,tL:"3px",bL:"3px",sL:"5px",pct:false},note:"Slim mobile banner. Most compact option.",src:"https://support.google.com/google-ads/answer/7031480"},
+  {id:20,cat:"Google Display & Video",badge:"b-responsive",name:"Responsive display ad",w:null,h:null,ratio:null,device:"All",
     isProfile:false,
     still:{fmt:"JPG, PNG only — no GIF or HTML5",kb:"Max 5MB per image asset"},
     video:{fmt:"YouTube video URL",dur:"Up to 30s"},
@@ -192,7 +192,7 @@ const F=[
     note:"Asset-based format — you provide the building blocks, Google's algorithm assembles and tests combinations across the entire Display Network automatically. Run fixed-size uploaded banners alongside if you have strict brand guidelines or need guaranteed placement control.",
     src:"https://support.google.com/google-ads/answer/7031480"},
   // ── DEMAND GEN ───────────────────────────────────────────────────────
-  {id:21,cat:"Google Display",badge:"b-responsive",name:"Demand Gen — single image",w:null,h:null,ratio:null,device:"All",
+  {id:21,cat:"Google Display & Video",badge:"b-responsive",name:"Demand Gen — single image",w:null,h:null,ratio:null,device:"All",
     rows:[
       {label:"Landscape image (required)",val:"1200×628 px rec. · min 600×314 px · 1.91:1 ratio · max 5MB"},
       {label:"Square image (required)",val:"1200×1200 px rec. · min 300×300 px · 1:1 ratio · max 5MB"},
@@ -209,7 +209,7 @@ const F=[
     still:{fmt:"JPG, PNG — no animated GIF",kb:"5MB per asset"},video:null,safe:null,
     note:"Demand Gen replaced Discovery Ads in 2024 and absorbed Video Action Campaigns in 2025. Single image ads appear natively in Google feeds — YouTube home, Discover and Gmail. Upload all three image ratios for maximum placement coverage across devices.",
     src:"https://support.google.com/google-ads/answer/13704860"},
-  {id:22,cat:"Google Display",badge:"b-responsive",name:"Demand Gen — carousel",w:null,h:null,ratio:null,device:"All",
+  {id:22,cat:"Google Display & Video",badge:"b-responsive",name:"Demand Gen — carousel",w:null,h:null,ratio:null,device:"All",
     rows:[
       {label:"Cards per ad",val:"2–10 image cards — displayed in upload order"},
       {label:"Landscape card",val:"1200×628 px rec. · min 600×314 px · 1.91:1 · max 5MB"},
@@ -226,7 +226,7 @@ const F=[
     still:{fmt:"JPG, PNG — no animated GIF",kb:"5MB per image"},video:null,safe:null,
     note:"Carousel ads let you tell a story across 2–10 images. Cards are shown in the order uploaded. Test one carousel with landscape images and one with square to find what works best. Note: product feeds from Google Merchant Center cannot currently be used with carousel ads.",
     src:"https://support.google.com/google-ads/answer/13704860"},
-  {id:23,cat:"Google Display",badge:"b-responsive",name:"Demand Gen — video",w:null,h:null,ratio:null,device:"All",
+  {id:23,cat:"Google Display & Video",badge:"b-responsive",name:"Demand Gen — video",w:null,h:null,ratio:null,device:"All",
     rows:[
       {label:"Landscape video (16:9)",val:"1920×1080 px (HD) · hosted on YouTube · no max length, under 3 min recommended"},
       {label:"Square video (1:1)",val:"1080×1080 px (HD) · hosted on YouTube · no max length, under 3 min recommended"},
@@ -351,7 +351,7 @@ const F=[
   {id:143,cat:"Finansavisen",badge:"b-finansavisen",name:"Fullscreen",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, HTML5",kb:"400KB"},video:{fmt:"MP4 / VAST tag",dur:"Up to 30s"},safe:{t:10,b:10,s:18,tL:"10%",bL:"10%",sL:"18%",pct:true},note:"Full-page takeover on Finansavisen.no. Safe area approx. 1400×800 px centred.",src:"https://annonseweb.finansavisen.no/products/1349/display"},
 ];
 
-const CATS=["All","Google Display and Video","YouTube","Facebook","Instagram","LinkedIn","TikTok","Snapchat","Schibsted","Amedia","Aller","DN","Finansavisen"];
+const CATS=["All","Google Display & Video","YouTube","Facebook","Instagram","LinkedIn","TikTok","Snapchat","Schibsted","Amedia","Aller","DN","Finansavisen"];
 let tab="All",q="";
 
 function deviceTag(d){
@@ -376,124 +376,156 @@ function buildSVG(f,W,H,labelMode){
   const tPx=Math.round(tF*H), bPx=Math.round(bF*H);
   const lPx=Math.round(lF*W), rPx=Math.round(rF*W);
   const safeH=H-tPx-bPx, safeW=W-lPx-rPx;
-  const fs=labelMode==="modal"?10:8;
+  const isModal=labelMode==="modal";
+  const fs=isModal?10:8;
   const ff="-apple-system,sans-serif";
-  const danger='rgba(192,34,10,0.18)';
-  const cautL='rgba(176,96,0,0.15)';
-  const cautR='rgba(176,96,0,0.22)';
-  const safeF='rgba(45,122,34,0.14)';
-  const safeS='rgba(45,122,34,0.65)';
+  const D='rgba(192,34,10,0.22)';   // danger
+  const CL='rgba(176,96,0,0.18)';   // caution left
+  const CR='rgba(176,96,0,0.28)';   // caution right (stronger)
+  const SF='rgba(45,122,34,0.16)';  // safe fill
+  const SS='rgba(45,122,34,0.75)';  // safe stroke
+  const DT='rgba(192,34,10,0.9)';   // danger text
+  const CT='rgba(140,76,0,1)';      // caution text
+  const ST='rgba(30,100,40,1)';     // safe text
 
-  let svg=`<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg" style="display:block">`;
-  svg+=`<rect width="${W}" height="${H}" fill="#dedad2"/>`;
+  let svg=`<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg" style="display:block;border-radius:4px;overflow:hidden">`;
+  svg+=`<rect width="${W}" height="${H}" fill="#e0dcd4"/>`;
 
-  // TikTok vertical: notch in top-right corner
-  // The right margin is only 60px (same as left) for the top strip, then widens to 120px below
-  // From the spec: safe zone top-right corner has a step — top 60px on right, then 120px
-  const isTikTokVert = s.notch==="tiktok-vert";
-  // Meta: notch in bottom-right — bottom-right area has extra step
-  const isMetaVert = s.notch==="meta-vert";
+  const isTikTokVert=s.notch==="tiktok-vert";
+  const isMetaVert=s.notch==="meta-vert";
 
   if(isTikTokVert){
-    // Top danger band: full width
-    svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="${danger}"/>`;
-    // Bottom danger band: full width
-    svg+=`<rect x="0" y="${H-bPx}" width="${W}" height="${bPx}" fill="${danger}"/>`;
-    // Left caution: full height of middle band
-    svg+=`<rect x="0" y="${tPx}" width="${lPx}" height="${safeH}" fill="${cautL}"/>`;
-    // Right caution: step/notch in top-right
-    // Top notch: narrow zone (same width as left=60px) for top ~30% of safe height
-    // Then widens to full 120px for remaining 70%
-    // This makes the step very visible at any size
-    const notchH=Math.round(safeH*0.30); // notch occupies top 30% of safe zone height
-    const rNarrow=lPx;  // 60px — matches left side
-    const rWide=rPx;    // 120px — full right margin
-    const stepW=rWide-rNarrow; // the visible step width (60px in real units, scaled)
-    // Render the two right caution blocks
-    svg+=`<rect x="${W-rNarrow}" y="${tPx}" width="${rNarrow}" height="${notchH}" fill="${cautR}"/>`;
-    svg+=`<rect x="${W-rWide}" y="${tPx+notchH}" width="${rWide}" height="${safeH-notchH}" fill="${cautR}"/>`;
-    // Draw a small step indicator line to make the notch pop
-    svg+=`<line x1="${W-rWide}" y1="${tPx+notchH}" x2="${W-rNarrow}" y2="${tPx+notchH}" stroke="rgba(192,34,10,0.7)" stroke-width="1.5"/>`;
-    // Safe zone: L-shape polygon
+    // ── TikTok vertical ─────────────────────────────────────────────────────
+    // Top danger (full width)
+    svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="${D}"/>`;
+    // Bottom danger (full width)
+    svg+=`<rect x="0" y="${H-bPx}" width="${W}" height="${bPx}" fill="${D}"/>`;
+    // Left caution
+    svg+=`<rect x="0" y="${tPx}" width="${lPx}" height="${safeH}" fill="${CL}"/>`;
+    // Right: NOTCH in top-right corner
+    // Top portion: narrow (60px = same as left) for top 35% of safe height
+    // Bottom portion: wide (120px) for remaining 65%
+    const notchH=Math.round(safeH*0.35);
+    const rN=lPx;   // narrow = 60px scaled
+    const rW=rPx;   // wide   = 120px scaled
+    // Top-right narrow strip
+    svg+=`<rect x="${W-rN}" y="${tPx}" width="${rN}" height="${notchH}" fill="${CR}"/>`;
+    // Bottom-right wide strip
+    svg+=`<rect x="${W-rW}" y="${tPx+notchH}" width="${rW}" height="${safeH-notchH}" fill="${CR}"/>`;
+    // Bold step line at the notch transition
+    svg+=`<line x1="${W-rW}" y1="${tPx+notchH}" x2="${W}" y2="${tPx+notchH}" stroke="rgba(192,34,10,0.9)" stroke-width="2.5"/>`;
+    // Safe zone L-shape
     const pts=[
       `${lPx},${tPx}`,
-      `${W-rNarrow},${tPx}`,
-      `${W-rNarrow},${tPx+notchH}`,
-      `${W-rWide},${tPx+notchH}`,
-      `${W-rWide},${tPx+safeH}`,
+      `${W-rN},${tPx}`,
+      `${W-rN},${tPx+notchH}`,
+      `${W-rW},${tPx+notchH}`,
+      `${W-rW},${tPx+safeH}`,
       `${lPx},${tPx+safeH}`
     ].join(' ');
-    svg+=`<polygon points="${pts}" fill="${safeF}"/>`;
-    svg+=`<polygon points="${pts}" fill="none" stroke="${safeS}" stroke-width="2" stroke-dasharray="5,3"/>`;
-    // Step dimension labels in modal mode
-    if(labelMode==="modal"){
-      svg+=`<text x="${W-rNarrow/2}" y="${tPx+notchH/2+3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,1)" font-weight="600">60px</text>`;
-      svg+=`<text x="${W-rWide/2}" y="${tPx+notchH+safeH/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,1)" font-weight="600">120px</text>`;
-      // Arrow indicating step
-      svg+=`<text x="${W-rNarrow-4}" y="${tPx+notchH+fs}" text-anchor="end" font-family="${ff}" font-size="${fs-1}" fill="rgba(192,34,10,0.9)">↓ step</text>`;
+    svg+=`<polygon points="${pts}" fill="${SF}"/>`;
+    svg+=`<polygon points="${pts}" fill="none" stroke="${SS}" stroke-width="2.5" stroke-dasharray="6,3"/>`;
+    // Labels — all placed INSIDE their zones
+    if(isModal){
+      // Top danger label (centred in top band)
+      if(tPx>fs+2) svg+=`<text x="${W/2}" y="${tPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.tL}</text>`;
+      // Bottom danger label
+      if(bPx>fs+2) svg+=`<text x="${W/2}" y="${H-bPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.bL}</text>`;
+      // Left caution label (rotated, inside left strip)
+      if(lPx>12) svg+=`<text x="${lPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="600" transform="rotate(-90,${lPx/2},${H/2})">${s.lL}</text>`;
+      // Right narrow label (top notch) — inside the narrow strip
+      if(rN>8&&notchH>fs+4) svg+=`<text x="${W-rN/2}" y="${tPx+notchH/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="700">${s.lL}</text>`;
+      // Right wide label (below step) — inside the wide strip
+      if(rW>12) svg+=`<text x="${W-rW/2}" y="${tPx+notchH+(safeH-notchH)/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="700">${s.rL}</text>`;
+      // Step annotation — small arrow inside the safe zone pointing to the step
+      const stepY=tPx+notchH;
+      svg+=`<text x="${W-rW-4}" y="${stepY-3}" text-anchor="end" font-family="${ff}" font-size="${fs-1}" fill="${DT}">← step</text>`;
+      // Safe zone centre label
+      const safeCx=lPx+(W-rW-lPx)/2;
+      const safeCy=tPx+safeH/2;
+      svg+=`<text x="${safeCx}" y="${safeCy-fs*0.7}" text-anchor="middle" font-family="${ff}" font-size="${fs+1}" fill="${ST}" font-weight="700">✓ Safe zone</text>`;
+      svg+=`<text x="${safeCx}" y="${safeCy+fs*0.8}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${ST}">Logos · Text · CTAs</text>`;
+    } else {
+      // Card mode: just safe zone label
+      const safeCx=lPx+(W-rW-lPx)/2;
+      svg+=`<text x="${safeCx}" y="${tPx+safeH/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${ST}" font-weight="600">Safe zone</text>`;
     }
-  } else if(isMetaVert){
-    // Top danger: full width
-    svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="${danger}"/>`;
-    // Bottom danger: full width
-    svg+=`<rect x="0" y="${H-bPx}" width="${W}" height="${bPx}" fill="${danger}"/>`;
-    // Left caution: full middle height
-    svg+=`<rect x="0" y="${tPx}" width="${lPx}" height="${safeH}" fill="${cautL}"/>`;
-    // Right caution: notch at bottom-right
-    // The right margin is standard for top ~60% of safe zone,
-    // then steps INWARD (wider danger) for bottom ~40% — CTA button area
-    // We use rPx as standard right margin, and add an extra step of same size for bottom
-    const rNotchH=Math.round(safeH*0.40); // bottom 40% of safe zone has wider right danger
-    const rNormal=rPx;               // standard right margin
-    const rStep=Math.round(rPx*0.8); // extra step width — makes it obviously visible
-    const rBottom=rNormal+rStep;     // total right danger width in bottom zone
-    // Render the two right caution blocks
-    svg+=`<rect x="${W-rNormal}" y="${tPx}" width="${rNormal}" height="${safeH-rNotchH}" fill="${cautR}"/>`;
-    svg+=`<rect x="${W-rBottom}" y="${tPx+safeH-rNotchH}" width="${rBottom}" height="${rNotchH}" fill="${cautR}"/>`;
-    // Step indicator line
-    svg+=`<line x1="${W-rBottom}" y1="${tPx+safeH-rNotchH}" x2="${W-rNormal}" y2="${tPx+safeH-rNotchH}" stroke="rgba(192,34,10,0.7)" stroke-width="1.5"/>`;
-    // Safe zone: L-shape polygon
-    const pts=[
-      `${lPx},${tPx}`,
-      `${W-rNormal},${tPx}`,
-      `${W-rNormal},${tPx+safeH-rNotchH}`,
-      `${W-rBottom},${tPx+safeH-rNotchH}`,
-      `${W-rBottom},${tPx+safeH}`,
-      `${lPx},${tPx+safeH}`
-    ].join(' ');
-    svg+=`<polygon points="${pts}" fill="${safeF}"/>`;
-    svg+=`<polygon points="${pts}" fill="none" stroke="${safeS}" stroke-width="2" stroke-dasharray="5,3"/>`;
-    if(labelMode==="modal"){
-      svg+=`<text x="${W-rNormal/2}" y="${tPx+safeH/3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,1)" font-weight="600">6%</text>`;
-      svg+=`<text x="${W-rBottom/2}" y="${tPx+safeH-rNotchH/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,1)" font-weight="600">CTA</text>`;
-    }
-  } else {
-    // Standard rectangular safe zone
-    svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="${danger}"/>`;
-    svg+=`<rect x="0" y="${H-bPx}" width="${W}" height="${bPx}" fill="${danger}"/>`;
-    svg+=`<rect x="0" y="${tPx}" width="${lPx}" height="${safeH}" fill="${cautL}"/>`;
-    svg+=`<rect x="${W-rPx}" y="${tPx}" width="${rPx}" height="${safeH}" fill="${cautR}"/>`;
-    svg+=`<rect x="${lPx}" y="${tPx}" width="${safeW}" height="${safeH}" fill="${safeF}"/>`;
-    svg+=`<rect x="${lPx}" y="${tPx}" width="${safeW}" height="${safeH}" fill="none" stroke="${safeS}" stroke-width="1.5" stroke-dasharray="5,3"/>`;
-  }
 
-  // Labels
-  const cx = isTikTokVert||isMetaVert ? lPx+safeW/2 : lPx+safeW/2;
-  const cy = tPx+safeH/2;
-  if(labelMode==="card"&&safeH>=12&&safeW>40){
-    svg+=`<text x="${cx}" y="${cy+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(45,122,34,0.95)" font-weight="600">Safe zone</text>`;
-  }
-  if(labelMode==="modal"){
-    if(tPx>=fs+4) svg+=`<text x="${W/2}" y="${tPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(192,34,10,0.9)" font-weight="500">UI overlay — ${s.tL}</text>`;
-    if(bPx>=fs+4) svg+=`<text x="${W/2}" y="${H-bPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(192,34,10,0.9)" font-weight="500">UI overlay — ${s.bL}</text>`;
-    if(safeH>=fs*3&&safeW>60){
-      svg+=`<text x="${cx}" y="${cy-fs*0.6}" text-anchor="middle" font-family="${ff}" font-size="${fs+1}" fill="rgba(45,122,34,1)" font-weight="700">✓ Safe zone</text>`;
-      svg+=`<text x="${cx}" y="${cy+fs*0.9}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(45,122,34,0.85)">Logos · Text · CTAs</text>`;
+  } else if(isMetaVert){
+    // ── Meta vertical ───────────────────────────────────────────────────────
+    // Top danger (full width)
+    svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="${D}"/>`;
+    // Bottom danger (full width)
+    svg+=`<rect x="0" y="${H-bPx}" width="${W}" height="${bPx}" fill="${D}"/>`;
+    // Left caution
+    svg+=`<rect x="0" y="${tPx}" width="${lPx}" height="${safeH}" fill="${CL}"/>`;
+    // Right: NOTCH in bottom-right corner
+    // Top portion: standard width (6%) for top 55% of safe height
+    // Bottom portion: WIDER (doubles) for bottom 45% — where CTA button sits
+    const rNotchH=Math.round(safeH*0.45);
+    const rTop=rPx;                    // standard 6%
+    const rBot=Math.round(rPx*2.2);   // step inward — clearly visible
+    // Top-right standard strip
+    svg+=`<rect x="${W-rTop}" y="${tPx}" width="${rTop}" height="${safeH-rNotchH}" fill="${CR}"/>`;
+    // Bottom-right wide strip (the step)
+    svg+=`<rect x="${W-rBot}" y="${tPx+safeH-rNotchH}" width="${rBot}" height="${rNotchH}" fill="${CR}"/>`;
+    // Bold step line at transition
+    svg+=`<line x1="${W-rBot}" y1="${tPx+safeH-rNotchH}" x2="${W}" y2="${tPx+safeH-rNotchH}" stroke="rgba(192,34,10,0.9)" stroke-width="2.5"/>`;
+    // Safe zone L-shape
+    const pts=[
+      `${lPx},${tPx}`,
+      `${W-rTop},${tPx}`,
+      `${W-rTop},${tPx+safeH-rNotchH}`,
+      `${W-rBot},${tPx+safeH-rNotchH}`,
+      `${W-rBot},${tPx+safeH}`,
+      `${lPx},${tPx+safeH}`
+    ].join(' ');
+    svg+=`<polygon points="${pts}" fill="${SF}"/>`;
+    svg+=`<polygon points="${pts}" fill="none" stroke="${SS}" stroke-width="2.5" stroke-dasharray="6,3"/>`;
+    // Labels — all INSIDE their zones
+    if(isModal){
+      if(tPx>fs+2) svg+=`<text x="${W/2}" y="${tPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.tL}</text>`;
+      if(bPx>fs+2) svg+=`<text x="${W/2}" y="${H-bPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.bL}</text>`;
+      if(lPx>12) svg+=`<text x="${lPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="600" transform="rotate(-90,${lPx/2},${H/2})">${s.lL}</text>`;
+      // Right top strip label (inside)
+      if(rTop>8&&(safeH-rNotchH)>fs+4) svg+=`<text x="${W-rTop/2}" y="${tPx+(safeH-rNotchH)/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="700">${s.rL}</text>`;
+      // Right bottom wider strip label (inside)
+      if(rBot>12&&rNotchH>fs+4) svg+=`<text x="${W-rBot/2}" y="${tPx+safeH-rNotchH/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="700">CTA area</text>`;
+      // Step annotation inside safe zone
+      const stepY=tPx+safeH-rNotchH;
+      svg+=`<text x="${W-rBot-4}" y="${stepY-3}" text-anchor="end" font-family="${ff}" font-size="${fs-1}" fill="${DT}">← step</text>`;
+      // Safe zone centre (use upper/wider part of the L for centering)
+      const safeCx=lPx+(W-rTop-lPx)/2;
+      const safeCy=tPx+(safeH-rNotchH)/2;
+      svg+=`<text x="${safeCx}" y="${safeCy-fs*0.7}" text-anchor="middle" font-family="${ff}" font-size="${fs+1}" fill="${ST}" font-weight="700">✓ Safe zone</text>`;
+      svg+=`<text x="${safeCx}" y="${safeCy+fs*0.8}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${ST}">Logos · Text · CTAs</text>`;
+    } else {
+      const safeCx=lPx+(W-rTop-lPx)/2;
+      svg+=`<text x="${safeCx}" y="${tPx+safeH/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${ST}" font-weight="600">Safe zone</text>`;
     }
-    const lLabel=s.lL||s.sL||"";
-    const rLabel=s.rL||s.sL||"";
-    if(lPx>14&&safeH>40) svg+=`<text x="${lPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,0.9)" font-weight="500" transform="rotate(-90,${lPx/2},${H/2})">${lLabel}</text>`;
-    if(rPx>14&&safeH>40) svg+=`<text x="${W-rPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,0.9)" font-weight="500" transform="rotate(90,${W-rPx/2},${H/2})">${rLabel}</text>`;
+
+  } else {
+    // ── Standard rectangular safe zone ──────────────────────────────────────
+    svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="${D}"/>`;
+    svg+=`<rect x="0" y="${H-bPx}" width="${W}" height="${bPx}" fill="${D}"/>`;
+    svg+=`<rect x="0" y="${tPx}" width="${lPx}" height="${safeH}" fill="${CL}"/>`;
+    svg+=`<rect x="${W-rPx}" y="${tPx}" width="${rPx}" height="${safeH}" fill="${CR}"/>`;
+    svg+=`<rect x="${lPx}" y="${tPx}" width="${safeW}" height="${safeH}" fill="${SF}"/>`;
+    svg+=`<rect x="${lPx}" y="${tPx}" width="${safeW}" height="${safeH}" fill="none" stroke="${SS}" stroke-width="2" stroke-dasharray="6,3"/>`;
+    if(isModal){
+      if(tPx>fs+2) svg+=`<text x="${W/2}" y="${tPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.tL}</text>`;
+      if(bPx>fs+2) svg+=`<text x="${W/2}" y="${H-bPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.bL}</text>`;
+      const lL=s.lL||s.sL||""; const rL=s.rL||s.sL||"";
+      if(lPx>12) svg+=`<text x="${lPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="600" transform="rotate(-90,${lPx/2},${H/2})">${lL}</text>`;
+      if(rPx>12) svg+=`<text x="${W-rPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="600" transform="rotate(90,${W-rPx/2},${H/2})">${rL}</text>`;
+      const cx=lPx+safeW/2, cy=tPx+safeH/2;
+      if(safeH>fs*3&&safeW>50){
+        svg+=`<text x="${cx}" y="${cy-fs*0.7}" text-anchor="middle" font-family="${ff}" font-size="${fs+1}" fill="${ST}" font-weight="700">✓ Safe zone</text>`;
+        svg+=`<text x="${cx}" y="${cy+fs*0.8}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${ST}">Logos · Text · CTAs</text>`;
+      }
+    } else {
+      if(safeH>10&&safeW>30) svg+=`<text x="${lPx+safeW/2}" y="${tPx+safeH/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${ST}" font-weight="600">Safe zone</text>`;
+    }
   }
   svg+=`</svg>`;
   return{svg,tPx,bPx,lPx,rPx,safeH,safeW};
