@@ -5,187 +5,308 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ad Format Reference</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #ffffff; --bg2: #f7f6f3; --bg3: #f0efe9;
-    --text: #1a1a18; --text2: #6b6b66; --text3: #9b9b94;
-    --border: rgba(26,26,24,0.12); --border2: rgba(26,26,24,0.22);
-    --radius-md: 8px; --radius-lg: 12px;
-    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1a1a18; --bg2: #242422; --bg3: #2e2e2b;
-      --text: #f0efe9; --text2: #a0a09a; --text3: #6b6b66;
-      --border: rgba(240,239,233,0.1); --border2: rgba(240,239,233,0.2);
-    }
-  }
-  body { font-family: var(--font); background: var(--bg3); color: var(--text); min-height: 100vh; }
-  header { background: var(--bg); border-bottom: 0.5px solid var(--border2); padding: 1.25rem 2rem; display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
-  header h1 { font-size: 18px; font-weight: 500; }
-  header p { font-size: 13px; color: var(--text2); }
-  .main { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
-  .controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: center; }
-  .tabs { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
-  .tab { padding: 6px 13px; border: 0.5px solid var(--border2); border-radius: var(--radius-md); font-size: 13px; cursor: pointer; background: var(--bg); color: var(--text2); transition: all 0.15s; white-space: nowrap; font-family: var(--font); }
-  .tab:hover { border-color: var(--text3); color: var(--text); }
-  .tab.active { background: var(--text); color: var(--bg); border-color: var(--text); }
-  .search { padding: 7px 12px; border: 0.5px solid var(--border2); border-radius: var(--radius-md); font-size: 13px; background: var(--bg); color: var(--text); font-family: var(--font); min-width: 180px; }
-  .search::placeholder { color: var(--text3); }
-  .search:focus { outline: none; border-color: var(--text3); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
-  .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.15rem; cursor: pointer; transition: border-color 0.15s; }
-  .card:hover { border-color: var(--border2); }
-  .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
-  .card-title { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.3; }
-  .badge { font-size: 11px; padding: 2px 8px; border-radius: var(--radius-md); white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
-  .b-google { background: #E6F1FB; color: #0C447C; }
-  .b-youtube { background: #FCEBEB; color: #A32D2D; }
-  .b-facebook { background: #EEEDFE; color: #3C3489; }
-  .b-instagram { background: #FAEEDA; color: #633806; }
-  .b-linkedin { background: #E6F1FB; color: #185FA5; }
-  .b-tiktok { background: #E1F5EE; color: #085041; }
-  .b-responsive { background: #EAF3DE; color: #27500A; }
-  .b-schibsted { background: #FCEBEB; color: #7A1F1F; }
-  .b-amedia { background: #FFF3E0; color: #7A4500; }
-  .b-aller { background: #F3E5F5; color: #5E1F7A; }
-  .b-dn { background: #E8F5E9; color: #1B5E20; }
-  .b-finansavisen { background: #E3F2FD; color: #0D3C6E; }
-  .dims { font-size: 20px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
-  .dimunit { font-size: 12px; font-weight: 400; color: var(--text2); }
-  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 0.5px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin: 10px 0; }
-  .specs-grid.single { grid-template-columns: 1fr; }
-  .spec-col { padding: 8px 10px; }
-  .spec-col + .spec-col { border-left: 0.5px solid var(--border); }
-  .spec-type { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text3); margin-bottom: 5px; }
-  .spec-row { font-size: 12px; color: var(--text2); margin-bottom: 2px; line-height: 1.4; }
-  .spec-val { color: var(--text); font-weight: 500; }
-  .safe-row { font-size: 11px; color: var(--text2); margin-top: 8px; padding-top: 8px; border-top: 0.5px solid var(--border); }
-  .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
-  .dsafe { background: #639922; }
-  .note { margin-top: 8px; font-size: 11px; color: var(--text2); line-height: 1.5; padding: 6px 8px; background: var(--bg2); border-radius: var(--radius-md); }
-  .tag-mob { font-size: 10px; padding: 1px 5px; background: #FAEEDA; color: #633806; border-radius: 4px; margin-left: 5px; vertical-align: middle; }
-  .tag-desk { font-size: 10px; padding: 1px 5px; background: #E6F1FB; color: #0C447C; border-radius: 4px; margin-left: 5px; vertical-align: middle; }
-  .modal-bd { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
-  .modal { background: var(--bg); border-radius: var(--radius-lg); border: 0.5px solid var(--border2); padding: 1.5rem; max-width: 480px; width: 100%; max-height: 88vh; overflow-y: auto; }
-  .mclose { float: right; cursor: pointer; font-size: 22px; line-height: 1; color: var(--text2); margin-top: -4px; background: none; border: none; font-family: var(--font); }
-  .mclose:hover { color: var(--text); }
-  .mtitle { font-size: 17px; font-weight: 500; margin-bottom: 3px; color: var(--text); }
-  .mcat { font-size: 13px; color: var(--text2); margin-bottom: 1rem; }
-  .mvis { display: flex; justify-content: center; margin: 1rem 0 0.5rem; }
-  .mcanvas { position: relative; border-radius: 4px; overflow: hidden; background: var(--bg2); border: 0.5px solid var(--border); }
-  .mlegend { display: flex; gap: 14px; justify-content: center; font-size: 11px; color: var(--text2); margin-bottom: 1rem; flex-wrap: wrap; }
-  .ml-item { display: flex; align-items: center; gap: 4px; }
-  .mspecs { border: 0.5px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 1rem; }
-  .mspec-col { padding: 10px 12px; }
-  .mspec-col + .mspec-col { border-top: 0.5px solid var(--border); }
-  .mspec-type { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text3); margin-bottom: 6px; }
-  .mspec-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 3px; gap: 8px; }
-  .mspec-l { color: var(--text2); }
-  .mspec-v { color: var(--text); font-weight: 500; text-align: right; }
-  .mnote { padding: 10px 12px; background: var(--bg2); border-radius: var(--radius-md); font-size: 13px; color: var(--text2); line-height: 1.5; }
-  .src-link { margin-top: 10px; font-size: 11px; color: var(--text3); }
-  .src-link a { color: var(--text3); }
-  .empty { padding: 3rem; text-align: center; color: var(--text2); font-size: 14px; }
-  footer { text-align: center; font-size: 12px; color: var(--text3); padding: 2rem; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg2:#f7f6f3;--bg3:#f0efe9;
+  --text:#1a1a18;--text2:#6b6b66;--text3:#9b9b94;
+  --border:rgba(26,26,24,0.12);--border2:rgba(26,26,24,0.25);
+  --radius-md:8px;--radius-lg:12px;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --safe:#2d7a22;--safe-bg:rgba(45,122,34,0.10);--safe-border:rgba(45,122,34,0.55);
+  --caution:#b06000;--caution-bg:rgba(176,96,0,0.10);--caution-border:rgba(176,96,0,0.45);
+  --danger:#c0220a;--danger-bg:rgba(192,34,10,0.10);--danger-border:rgba(192,34,10,0.45);
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#1a1a18;--bg2:#242422;--bg3:#2e2e2b;--text:#f0efe9;--text2:#a0a09a;--text3:#6b6b66;--border:rgba(240,239,233,0.1);--border2:rgba(240,239,233,0.22)}
+}
+body{font-family:var(--font);background:var(--bg3);color:var(--text);min-height:100vh}
+header{background:var(--bg);border-bottom:0.5px solid var(--border2);padding:1.25rem 2rem}
+header h1{font-size:18px;font-weight:500;margin-bottom:2px}
+header p{font-size:13px;color:var(--text2)}
+.main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.tab{padding:6px 13px;border:0.5px solid var(--border2);border-radius:var(--radius-md);font-size:13px;cursor:pointer;background:var(--bg);color:var(--text2);transition:all 0.15s;white-space:nowrap;font-family:var(--font)}
+.tab:hover{color:var(--text);border-color:var(--text3)}
+.tab.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.search{padding:7px 12px;border:0.5px solid var(--border2);border-radius:var(--radius-md);font-size:13px;background:var(--bg);color:var(--text);font-family:var(--font);min-width:180px}
+.search::placeholder{color:var(--text3)}
+.search:focus{outline:none;border-color:var(--text3)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.15rem;cursor:pointer;transition:border-color 0.15s,box-shadow 0.15s}
+.card:hover{border-color:var(--border2);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.card.profile-card{cursor:default;border-style:dashed}
+.card.profile-card:hover{box-shadow:none}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
+.card-title{font-size:14px;font-weight:500;color:var(--text);line-height:1.3}
+.badge{font-size:11px;padding:2px 8px;border-radius:var(--radius-md);white-space:nowrap;flex-shrink:0}
+.b-google{background:#E6F1FB;color:#0C447C}.b-youtube{background:#FCEBEB;color:#A32D2D}
+.b-facebook{background:#EEEDFE;color:#3C3489}.b-instagram{background:#FAEEDA;color:#633806}
+.b-linkedin{background:#E6F1FB;color:#185FA5}.b-tiktok{background:#E1F5EE;color:#085041}
+.b-snapchat{background:#FFF9C4;color:#7A6500}.b-responsive{background:#EAF3DE;color:#27500A}
+.b-schibsted{background:#FCEBEB;color:#7A1F1F}.b-amedia{background:#FFF3E0;color:#7A4500}
+.b-aller{background:#F3E5F5;color:#5E1F7A}.b-dn{background:#E8F5E9;color:#1B5E20}
+.b-finansavisen{background:#E3F2FD;color:#0D3C6E}.b-profile{background:#F1EFE8;color:#444441}
+.dims{font-size:19px;font-weight:500;color:var(--text);margin-bottom:2px}
+.dimunit{font-size:12px;font-weight:400;color:var(--text2)}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;border:0.5px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin:8px 0}
+.specs-grid.single{grid-template-columns:1fr}
+.spec-col{padding:8px 10px}
+.spec-col+.spec-col{border-left:0.5px solid var(--border)}
+.spec-type{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3);margin-bottom:4px}
+.spec-row{font-size:12px;color:var(--text2);margin-bottom:2px;line-height:1.4}
+.spec-val{color:var(--text);font-weight:500}
+/* safe zone diagram on card */
+.sz-wrap{margin:8px 0}
+.sz-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3);margin-bottom:5px}
+.sz-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:5px}
+.sz-li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2)}
+.sz-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.sz-dot-safe{background:var(--safe-bg);border:1px solid var(--safe-border)}
+.sz-dot-danger{background:var(--danger-bg);border:1px solid var(--danger-border)}
+.sz-dot-caution{background:var(--caution-bg);border:1px solid var(--caution-border)}
+.note{font-size:11px;color:var(--text2);line-height:1.5;padding:6px 8px;background:var(--bg2);border-radius:var(--radius-md);margin-top:8px}
+.no-sz{font-size:11px;color:var(--text3);font-style:italic;margin:4px 0 6px}
+.tag-mob{font-size:10px;padding:1px 6px;background:#FAEEDA;color:#633806;border-radius:4px;margin-left:4px;vertical-align:middle}
+.tag-desk{font-size:10px;padding:1px 6px;background:#E6F1FB;color:#0C447C;border-radius:4px;margin-left:4px;vertical-align:middle}
+.tag-profile{font-size:10px;padding:1px 6px;background:#F1EFE8;color:#444441;border-radius:4px;margin-left:4px;vertical-align:middle}
+/* profile cards grid rows */
+.profile-rows{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.prow{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;padding:5px 0;border-bottom:0.5px solid var(--border)}
+.prow:last-child{border-bottom:none}
+.prow-label{color:var(--text2)}
+.prow-val{color:var(--text);font-weight:500;text-align:right}
+/* section divider */
+.section-head{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin:1.5rem 0 0.75rem;padding-bottom:6px;border-bottom:0.5px solid var(--border)}
+/* Modal */
+.modal-bd{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:100;padding:1rem}
+.modal{background:var(--bg);border-radius:var(--radius-lg);border:0.5px solid var(--border2);padding:1.5rem;max-width:520px;width:100%;max-height:90vh;overflow-y:auto}
+.mclose{float:right;cursor:pointer;font-size:22px;line-height:1;color:var(--text2);background:none;border:none;font-family:var(--font)}
+.mclose:hover{color:var(--text)}
+.mtitle{font-size:17px;font-weight:500;margin-bottom:3px;color:var(--text)}
+.mcat{font-size:13px;color:var(--text2);margin-bottom:1.25rem}
+.modal-sz-title{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:8px}
+.modal-sz-wrap{display:flex;justify-content:center;margin-bottom:10px}
+.modal-canvas{position:relative;border-radius:6px;overflow:hidden;border:0.5px solid var(--border2);background:var(--bg2)}
+.zone-explanations{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem}
+.zone-box{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:var(--radius-md);border:0.5px solid}
+.zone-box.safe{background:var(--safe-bg);border-color:var(--safe-border)}
+.zone-box.caution{background:var(--caution-bg);border-color:var(--caution-border)}
+.zone-box.danger{background:var(--danger-bg);border-color:var(--danger-border)}
+.zone-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;margin-top:1px}
+.zone-swatch.safe{background:var(--safe)}
+.zone-swatch.caution{background:var(--caution)}
+.zone-swatch.danger{background:var(--danger)}
+.zone-tt{font-size:12px;font-weight:500;color:var(--text);margin-bottom:1px}
+.zone-td{font-size:11px;color:var(--text2);line-height:1.4}
+.mspecs{border:0.5px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-bottom:1rem}
+.mspec-col{padding:10px 12px}
+.mspec-col+.mspec-col{border-top:0.5px solid var(--border)}
+.mspec-type{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3);margin-bottom:6px}
+.mspec-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;gap:8px}
+.mspec-l{color:var(--text2)}.mspec-v{color:var(--text);font-weight:500;text-align:right}
+.mnote{padding:10px 12px;background:var(--bg2);border-radius:var(--radius-md);font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:10px}
+.src-link{font-size:11px;color:var(--text3)}
+.src-link a{color:var(--text3)}
+.empty{padding:3rem;text-align:center;color:var(--text2);font-size:14px}
+footer{text-align:center;font-size:12px;color:var(--text3);padding:2rem}
 </style>
 </head>
 <body>
 <header>
   <h1>Ad format reference</h1>
-  <p>Google · YouTube · Social · Schibsted · Amedia · Aller · DN · Finansavisen — last reviewed April 2026</p>
+  <p>Google · YouTube · Facebook · Instagram · LinkedIn · TikTok · Snapchat · Schibsted · Amedia · Aller · DN · Finansavisen — last reviewed April 2026</p>
 </header>
 <div class="main">
   <div class="controls">
     <div class="tabs" id="tabs"></div>
     <input class="search" type="text" id="srch" placeholder="Search formats…" />
   </div>
-  <div class="grid" id="grid"></div>
+  <div id="grid"></div>
 </div>
 <div id="modal" style="display:none" class="modal-bd">
   <div class="modal" id="mi"></div>
 </div>
-<footer>Specs change — always verify against official publisher docs before submitting material.</footer>
+<footer>Specs change — always verify against official platform and publisher docs before submitting material.</footer>
 <script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+// safe: t/b/s are numbers (percent or px), tLabel/bLabel/sLabel are display strings, isPercent flag
 const F=[
-  {id:1,cat:"Google Display",badge:"b-google",name:"Medium rectangle",w:300,h:250,ratio:"6:5",device:"All",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:"6px",b:"6px",s:"6px"},note:"Highest fill rate — works in articles, sidebars and mobile. The default pick for most campaigns.",src:null},
-  {id:2,cat:"Google Display",badge:"b-google",name:"Leaderboard",w:728,h:90,ratio:"728:90",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:"5px",b:"5px",s:"8px"},note:"Top of page on desktop. Very common, but limited mobile reach.",src:null},
-  {id:3,cat:"Google Display",badge:"b-google",name:"Large rectangle",w:336,h:280,ratio:"6:5",device:"All",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:"6px",b:"6px",s:"6px"},note:"Slightly better CTR than 300×250 in content areas.",src:null},
-  {id:4,cat:"Google Display",badge:"b-google",name:"Half page",w:300,h:600,ratio:"1:2",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:"10px",b:"10px",s:"8px"},note:"High impact, strong brand visibility. Common in sidebars on premium publishers.",src:null},
-  {id:5,cat:"Google Display",badge:"b-google",name:"Wide skyscraper",w:160,h:600,ratio:"4:15",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:"8px",b:"8px",s:"6px"},note:"Sidebar placement, common on news and editorial sites.",src:null},
-  {id:6,cat:"Google Display",badge:"b-google",name:"Billboard",w:970,h:250,ratio:"97:25",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:"8px",b:"8px",s:"12px"},note:"Premium large-format, typically at the top of premium publisher pages.",src:null},
-  {id:7,cat:"Google Display",badge:"b-google",name:"Large mobile banner",w:320,h:100,ratio:"16:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:"4px",b:"4px",s:"6px"},note:"Mobile web, above the fold. Preferred over the slim 320×50.",src:null},
-  {id:8,cat:"Google Display",badge:"b-google",name:"Mobile banner",w:320,h:50,ratio:"32:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:"3px",b:"3px",s:"5px"},note:"Slim mobile banner. Most compact option — keep messaging very short.",src:null},
-  {id:20,cat:"Responsive Display",badge:"b-responsive",name:"Responsive display ad",w:null,h:null,ratio:null,device:"All",still:{fmt:"JPG, PNG (no GIF/HTML5)",kb:"5MB per asset"},video:{fmt:"MP4 via YouTube URL",dur:"Up to 30s"},safe:null,note:"Asset-based — upload landscape (1200×628), square (1200×1200), optional portrait (960×1200) images plus logos, headlines & descriptions. Google assembles and tests combinations. Run fixed-size uploads alongside if brand guidelines are strict.",src:null},
-  {id:9,cat:"YouTube",badge:"b-youtube",name:"Skippable in-stream",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Min 12s, skip after 5s"},safe:{t:"14%",b:"35%",s:"10%"},note:"Pre/mid/post-roll. Key message must land in the first 5 seconds before skip appears.",src:null},
-  {id:10,cat:"YouTube",badge:"b-youtube",name:"Non-skippable in-stream",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Max 15s"},safe:{t:"14%",b:"20%",s:"10%"},note:"No skip — every second must earn attention.",src:null},
-  {id:11,cat:"YouTube",badge:"b-youtube",name:"Bumper ad",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Max 6s"},safe:{t:"14%",b:"20%",s:"10%"},note:"Great for reach and brand recall. Works well paired with longer skippable ads.",src:null},
-  {id:12,cat:"YouTube",badge:"b-youtube",name:"In-feed / Discovery",w:1280,h:720,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV",dur:"Any length"},safe:{t:"10%",b:"10%",s:"8%"},note:"Appears in search results and homepage feed. Thumbnail design is critical for CTR.",src:null},
-  {id:13,cat:"YouTube",badge:"b-youtube",name:"Masthead",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV",dur:"Up to 30s"},safe:{t:"12%",b:"30%",s:"10%"},note:"Homepage takeover — reserved buy only, booked directly through Google sales.",src:null},
-  {id:14,cat:"YouTube",badge:"b-youtube",name:"Shorts ad",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"Max 60s"},safe:{t:"15%",b:"25%",s:"8%"},note:"Vertical format for the Shorts feed. Design mobile-first — heavy UI overlay at bottom.",src:null},
-  {id:30,cat:"Facebook",badge:"b-facebook",name:"Feed — square",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 241 min"},safe:{t:"5%",b:"5%",s:"5%"},note:"Primary recommended format — works across all placements on desktop and mobile.",src:null},
-  {id:31,cat:"Facebook",badge:"b-facebook",name:"Feed — portrait",w:1080,h:1350,ratio:"4:5",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 241 min"},safe:{t:"5%",b:"12%",s:"5%"},note:"More screen real estate on mobile — best performing ratio in the feed. Mobile only.",src:null},
-  {id:32,cat:"Facebook",badge:"b-facebook",name:"Stories / Reels",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Max 15s (Stories)"},safe:{t:"14%",b:"20%",s:"5%"},note:"Full-screen vertical. Keep all logos and text away from the top and bottom 14–20%.",src:null},
-  {id:33,cat:"Facebook",badge:"b-facebook",name:"Carousel",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 240s per card"},safe:{t:"5%",b:"5%",s:"5%"},note:"2–10 cards, each can link separately. Keep visual style consistent across cards.",src:null},
-  {id:40,cat:"Instagram",badge:"b-instagram",name:"Feed — square",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 60s"},safe:{t:"5%",b:"5%",s:"5%"},note:"Classic format — safe across all placements. Good starting point for any campaign.",src:null},
-  {id:41,cat:"Instagram",badge:"b-instagram",name:"Feed — portrait",w:1080,h:1350,ratio:"4:5",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 60s"},safe:{t:"5%",b:"12%",s:"5%"},note:"Recommended: more feed real estate on mobile. Higher engagement than square in most cases.",src:null},
-  {id:42,cat:"Instagram",badge:"b-instagram",name:"Stories",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Max 15s"},safe:{t:"14%",b:"20%",s:"5%"},note:"Keep all key content between the 14%–80% vertical band — heavy UI overlay top and bottom.",src:null},
-  {id:43,cat:"Instagram",badge:"b-instagram",name:"Reels",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"Max 90s"},safe:{t:"15%",b:"25%",s:"8%"},note:"Vertical video only. Design for sound-off — add captions. Hook in the first 3 seconds.",src:null},
-  {id:44,cat:"Instagram",badge:"b-instagram",name:"Carousel",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 60s per card"},safe:{t:"5%",b:"5%",s:"5%"},note:"Up to 10 cards — first card is the hook. Square only in feed.",src:null},
-  {id:50,cat:"LinkedIn",badge:"b-linkedin",name:"Feed — landscape",w:1200,h:628,ratio:"1.91:1",device:"All",still:{fmt:"JPG, PNG, GIF (static)",kb:"5MB"},video:{fmt:"MP4 (H.264/AAC)",kb:"200MB",dur:"3s–30min"},safe:{t:"5%",b:"5%",s:"5%"},note:"Desktop and mobile. Landscape video appears smaller on mobile — consider 1:1 for mixed audiences.",src:null},
-  {id:51,cat:"LinkedIn",badge:"b-linkedin",name:"Feed — square",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG, GIF (static)",kb:"5MB"},video:{fmt:"MP4 (H.264/AAC)",kb:"200MB",dur:"3s–30min"},safe:{t:"5%",b:"5%",s:"5%"},note:"Best all-rounder for both stills and video — works well across desktop and mobile. Recommended starting point.",src:null},
-  {id:52,cat:"LinkedIn",badge:"b-linkedin",name:"Feed — portrait (4:5)",w:1080,h:1350,ratio:"4:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF (static)",kb:"5MB"},video:{fmt:"MP4 (H.264/AAC)",kb:"200MB",dur:"3s–30min"},safe:{t:"5%",b:"12%",s:"5%"},note:"Mobile only. Takes up most of the screen without going full-screen — best mobile format for B2B campaigns.",src:null},
-  {id:57,cat:"LinkedIn",badge:"b-linkedin",name:"Feed — vertical (9:16)",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4 (H.264/AAC)",kb:"200MB",dur:"3s–30min"},safe:{t:"15%",b:"25%",s:"8%"},note:"Mobile only, video only. Full-screen immersive. Keep key content well within the safe zone.",src:null},
-  {id:54,cat:"LinkedIn",badge:"b-linkedin",name:"Carousel",w:1200,h:1200,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"5MB"},video:null,safe:{t:"5%",b:"5%",s:"5%"},note:"2–10 cards, image only. Great for step-by-step content, case studies or product showcases.",src:null},
-  {id:60,cat:"TikTok",badge:"b-tiktok",name:"In-feed video",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV, AVI",dur:"5s–60s (9–15s recommended)"},safe:{t:"15%",b:"25%",s:"8%"},note:"Native vertical video in the feed. Hook in the first 3 seconds. Heavy UI overlay at the bottom.",src:null},
-  {id:61,cat:"TikTok",badge:"b-tiktok",name:"TopView",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"5s–60s"},safe:{t:"15%",b:"25%",s:"8%"},note:"First ad seen on app open — highest impact premium placement on TikTok.",src:null},
-  {id:62,cat:"TikTok",badge:"b-tiktok",name:"Spark ad",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"Any"},safe:{t:"15%",b:"25%",s:"8%"},note:"Boosted organic post — must use content from an existing TikTok account.",src:null},
+  // ── GOOGLE DISPLAY (includes Responsive) ───────────────────────────────
+  {id:1,cat:"Google Display",badge:"b-google",name:"Medium rectangle",w:300,h:250,ratio:"6:5",device:"All",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:6,b:6,s:6,tL:"6px",bL:"6px",sL:"6px",pct:false},note:"Highest fill rate — works in articles, sidebars and mobile. The default pick for most campaigns.",src:null},
+  {id:2,cat:"Google Display",badge:"b-google",name:"Leaderboard",w:728,h:90,ratio:"728:90",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:5,b:5,s:8,tL:"5px",bL:"5px",sL:"8px",pct:false},note:"Top of page on desktop. Very common but limited mobile reach.",src:null},
+  {id:3,cat:"Google Display",badge:"b-google",name:"Large rectangle",w:336,h:280,ratio:"6:5",device:"All",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:6,b:6,s:6,tL:"6px",bL:"6px",sL:"6px",pct:false},note:"Slightly better CTR than 300×250 in content areas.",src:null},
+  {id:4,cat:"Google Display",badge:"b-google",name:"Half page",w:300,h:600,ratio:"1:2",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:10,b:10,s:8,tL:"10px",bL:"10px",sL:"8px",pct:false},note:"High impact, strong brand visibility. Common in sidebars on premium publishers.",src:null},
+  {id:5,cat:"Google Display",badge:"b-google",name:"Wide skyscraper",w:160,h:600,ratio:"4:15",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:8,b:8,s:6,tL:"8px",bL:"8px",sL:"6px",pct:false},note:"Sidebar placement, common on news and editorial sites.",src:null},
+  {id:6,cat:"Google Display",badge:"b-google",name:"Billboard",w:970,h:250,ratio:"97:25",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:8,b:8,s:12,tL:"8px",bL:"8px",sL:"12px",pct:false},note:"Premium large-format, typically at the top of premium publisher pages.",src:null},
+  {id:7,cat:"Google Display",badge:"b-google",name:"Large mobile banner",w:320,h:100,ratio:"16:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:4,b:4,s:6,tL:"4px",bL:"4px",sL:"6px",pct:false},note:"Mobile web, above the fold. Preferred over the slim 320×50.",src:null},
+  {id:8,cat:"Google Display",badge:"b-google",name:"Mobile banner",w:320,h:50,ratio:"32:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:3,b:3,s:5,tL:"3px",bL:"3px",sL:"5px",pct:false},note:"Slim mobile banner. Most compact option.",src:null},
+  {id:20,cat:"Google Display",badge:"b-responsive",name:"Responsive display ad",w:null,h:null,ratio:null,device:"All",still:{fmt:"JPG, PNG (no GIF/HTML5)",kb:"5MB per asset"},video:{fmt:"MP4 via YouTube URL",dur:"Up to 30s"},safe:null,note:"Asset-based format — upload landscape (1200×628), square (1200×1200), and optional portrait (960×1200) images, plus logo, headlines & descriptions. Google's algorithm assembles and tests combinations automatically. Tip: also run fixed-size uploads if brand guidelines are strict.",src:null},
+  // ── YOUTUBE ───────────────────────────────────────────────────────────
+  {id:9,cat:"YouTube",badge:"b-youtube",name:"Skippable in-stream",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Min 12s — skip after 5s"},safe:{t:14,b:35,s:10,tL:"14%",bL:"35%",sL:"10%",pct:true},note:"Pre/mid/post-roll. Key message must land in the first 5 seconds. Bottom 35% is heavily overlaid by skip button and info cards.",src:null},
+  {id:10,cat:"YouTube",badge:"b-youtube",name:"Non-skippable in-stream",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Max 15s"},safe:{t:14,b:20,s:10,tL:"14%",bL:"20%",sL:"10%",pct:true},note:"No skip — every second must earn attention.",src:null},
+  {id:11,cat:"YouTube",badge:"b-youtube",name:"Bumper ad",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Max 6s"},safe:{t:14,b:20,s:10,tL:"14%",bL:"20%",sL:"10%",pct:true},note:"Great for reach and brand recall. Works well paired with longer skippable ads.",src:null},
+  {id:12,cat:"YouTube",badge:"b-youtube",name:"In-feed / Discovery",w:1280,h:720,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV",dur:"Any length"},safe:{t:10,b:10,s:8,tL:"10%",bL:"10%",sL:"8%",pct:true},note:"Appears in search results and homepage feed. Thumbnail design is critical for CTR.",src:null},
+  {id:13,cat:"YouTube",badge:"b-youtube",name:"Masthead",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV",dur:"Up to 30s"},safe:{t:12,b:30,s:10,tL:"12%",bL:"30%",sL:"10%",pct:true},note:"Homepage takeover — reserved buy only, booked directly through Google sales.",src:null},
+  {id:14,cat:"YouTube",badge:"b-youtube",name:"Shorts ad",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"Max 60s"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"Vertical format for the Shorts feed. Design mobile-first — heavy UI overlay at bottom.",src:null},
+  // ── FACEBOOK ──────────────────────────────────────────────────────────
+  {id:30,cat:"Facebook",badge:"b-facebook",name:"Feed — square",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 241 min"},safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"Primary recommended format — works across all placements on desktop and mobile.",src:null},
+  {id:31,cat:"Facebook",badge:"b-facebook",name:"Feed — portrait",w:1080,h:1350,ratio:"4:5",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 241 min"},safe:{t:5,b:12,s:5,tL:"5%",bL:"12%",sL:"5%",pct:true},note:"More screen real estate on mobile — best performing ratio in the feed. Mobile only.",src:null},
+  {id:32,cat:"Facebook",badge:"b-facebook",name:"Stories / Reels",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Max 15s (Stories)"},safe:{t:14,b:20,s:5,tL:"14%",bL:"20%",sL:"5%",pct:true},note:"Full-screen vertical. Top 14% shows profile info, bottom 20% has CTA and swipe-up UI. Keep logos and text in the middle band.",src:null},
+  {id:33,cat:"Facebook",badge:"b-facebook",name:"Carousel",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 240s per card"},safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"2–10 cards, each can link separately. Keep visual style consistent across cards.",src:null},
+  {id:300,cat:"Facebook",badge:"b-profile",name:"Profile & cover specs",w:null,h:null,ratio:null,device:null,isProfile:true,
+    rows:[
+      {label:"Profile photo",val:"170×170 px (desktop) · 128×128 px (mobile) — shown as circle"},
+      {label:"Cover photo",val:"851×315 px (desktop) · 640×360 px (mobile) — JPG/PNG, max 100KB"},
+      {label:"Cover tip",val:"Keep key content in the centre — top/left overlap with profile photo"},
+      {label:"Logo/page icon",val:"170×170 px — keep centred, will be cropped to circle"},
+    ],
+    note:"Facebook crops the cover photo differently on desktop vs mobile. Profile photo overlaps the bottom-left corner on desktop. Always preview both.",src:null},
+  // ── INSTAGRAM ─────────────────────────────────────────────────────────
+  {id:40,cat:"Instagram",badge:"b-instagram",name:"Feed — square",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 60s"},safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"Classic format — safe across all placements. Good starting point for any campaign.",src:null},
+  {id:41,cat:"Instagram",badge:"b-instagram",name:"Feed — portrait",w:1080,h:1350,ratio:"4:5",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 60s"},safe:{t:5,b:12,s:5,tL:"5%",bL:"12%",sL:"5%",pct:true},note:"Recommended: more feed real estate on mobile. Higher engagement than square in most cases.",src:null},
+  {id:42,cat:"Instagram",badge:"b-instagram",name:"Stories",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Max 15s"},safe:{t:14,b:20,s:5,tL:"14%",bL:"20%",sL:"5%",pct:true},note:"Top 14% (≈250px): profile picture and username. Bottom 20% (≈340px): CTA, swipe-up link. Keep all logos and text in the safe middle band.",src:null},
+  {id:43,cat:"Instagram",badge:"b-instagram",name:"Reels",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"Max 90s"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"Vertical video only. Design for sound-off — add captions. Hook in the first 3 seconds. Like/comment buttons overlay the right side.",src:null},
+  {id:44,cat:"Instagram",badge:"b-instagram",name:"Carousel",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 60s per card"},safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"Up to 10 cards — first card is the hook. Square only in feed.",src:null},
+  {id:400,cat:"Instagram",badge:"b-profile",name:"Profile & cover specs",w:null,h:null,ratio:null,device:null,isProfile:true,
+    rows:[
+      {label:"Profile photo",val:"320×320 px upload — displayed at 110×110 px as circle"},
+      {label:"Profile tip",val:"Keep subject/logo centred — Instagram crops to a circle"},
+      {label:"Feed grid preview",val:"Profile grid now shows a taller rectangle crop (approx 3:4) — keep key elements centred"},
+      {label:"Highlight cover",val:"1080×1920 px · JPG/PNG · shown as small circle thumbnail"},
+    ],
+    note:"Instagram has no traditional 'cover photo'. The highlight covers are your closest equivalent to a branded header — design them as 9:16 but keep branding centred in the middle third.",src:null},
+  // ── LINKEDIN ──────────────────────────────────────────────────────────
+  {id:50,cat:"LinkedIn",badge:"b-linkedin",name:"Feed — landscape",w:1200,h:628,ratio:"1.91:1",device:"All",still:{fmt:"JPG, PNG, GIF (static)",kb:"5MB"},video:{fmt:"MP4 (H.264/AAC)",kb:"200MB",dur:"3s–30min"},safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"Desktop and mobile. Landscape video appears smaller on mobile — consider 1:1 for mixed audiences.",src:null},
+  {id:51,cat:"LinkedIn",badge:"b-linkedin",name:"Feed — square",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG, GIF (static)",kb:"5MB"},video:{fmt:"MP4 (H.264/AAC)",kb:"200MB",dur:"3s–30min"},safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"Best all-rounder for both stills and video — works well across desktop and mobile. Recommended starting point.",src:null},
+  {id:52,cat:"LinkedIn",badge:"b-linkedin",name:"Feed — portrait (4:5)",w:1080,h:1350,ratio:"4:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF (static)",kb:"5MB"},video:{fmt:"MP4 (H.264/AAC)",kb:"200MB",dur:"3s–30min"},safe:{t:5,b:12,s:5,tL:"5%",bL:"12%",sL:"5%",pct:true},note:"Mobile only. Takes up most of the screen without going full-screen — best mobile format for B2B campaigns.",src:null},
+  {id:57,cat:"LinkedIn",badge:"b-linkedin",name:"Feed — vertical (9:16)",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4 (H.264/AAC)",kb:"200MB",dur:"3s–30min"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"Mobile only, video only. Full-screen immersive. Keep key content well within the safe zone.",src:null},
+  {id:54,cat:"LinkedIn",badge:"b-linkedin",name:"Carousel",w:1200,h:1200,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"5MB"},video:null,safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"2–10 cards, image only. Great for step-by-step content, case studies or product showcases.",src:null},
+  {id:500,cat:"LinkedIn",badge:"b-profile",name:"Profile & cover specs",w:null,h:null,ratio:null,device:null,isProfile:true,
+    rows:[
+      {label:"Personal profile photo",val:"400×400 px recommended · max 8MB · displayed as circle"},
+      {label:"Personal cover/banner",val:"1584×396 px (4:1 ratio) · max 8MB · JPG or PNG"},
+      {label:"Company logo",val:"300×300 px · max 3MB · shown as square next to company name"},
+      {label:"Company cover photo",val:"1128×191 px · max 3MB · JPG or PNG"},
+      {label:"Company cover tip",val:"Logo overlaps the left side on company pages — keep key content centred-right"},
+    ],
+    note:"LinkedIn uses different cover dimensions for personal profiles (1584×396) vs company pages (1128×191). Double-check which you're designing for before exporting.",src:null},
+  // ── TIKTOK ────────────────────────────────────────────────────────────
+  {id:60,cat:"TikTok",badge:"b-tiktok",name:"In-feed video",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV, AVI",dur:"5s–60s (9–15s recommended)"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"Native vertical video in the feed. Like/comment buttons and caption overlay the right side and bottom 25%. Hook in the first 3 seconds.",src:null},
+  {id:61,cat:"TikTok",badge:"b-tiktok",name:"TopView",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"5s–60s"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"First ad seen on app open — highest impact premium placement on TikTok.",src:null},
+  {id:62,cat:"TikTok",badge:"b-tiktok",name:"Spark ad",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"Any"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"Boosted organic post — must use content from an existing TikTok account.",src:null},
+  {id:600,cat:"TikTok",badge:"b-profile",name:"Profile & cover specs",w:null,h:null,ratio:null,device:null,isProfile:true,
+    rows:[
+      {label:"Profile photo",val:"400×400 px recommended · displayed as circle · JPG or PNG"},
+      {label:"Profile tip",val:"Keep logo/subject centred — TikTok crops to a circle in various sizes across placements"},
+      {label:"Video cover frame",val:"1080×1920 px · The first frame of your video or a custom thumbnail · keep text away from the bottom 25%"},
+    ],
+    note:"TikTok has no separate cover photo page like Facebook or LinkedIn. Your profile photo and video thumbnails are your main brand touchpoints.",src:null},
+  // ── SNAPCHAT ──────────────────────────────────────────────────────────
+  {id:70,cat:"Snapchat",badge:"b-snapchat",name:"Single image / video",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"JPG, PNG · max 5MB"},video:{fmt:"MP4, MOV (H.264)",kb:"1GB",dur:"3s–180s (3–10s recommended)"},safe:{t:8,b:16,s:5,tL:"8%",bL:"16%",sL:"5%",pct:true},note:"The core Snapchat ad format. Appears full-screen between Stories and in Discover. Avoid placing logos or text in the top 8% (profile/UI area) and bottom 16% (swipe-up CTA zone). Audio required.",src:"https://forbusiness.snapchat.com/advertising/ad-formats"},
+  {id:71,cat:"Snapchat",badge:"b-snapchat",name:"Story ad",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"PNG tile: 360×600 px · logo: 993×284 px PNG (transparent bg)"},video:{fmt:"MP4, MOV (H.264)",dur:"Up to 180s per snap"},safe:{t:9,b:16,s:5,tL:"9%",bL:"16%",sL:"5%",pct:true},note:"Branded tile in the Discover feed opens a collection of 1–10 snaps. Tile logo: 993×284 px PNG on transparent background. Tile image: 360×600 px PNG. Allow 175px buffer at top of tile to avoid logo clash. Headline: max 55 characters.",src:"https://forbusiness.snapchat.com/advertising/ad-formats"},
+  {id:72,cat:"Snapchat",badge:"b-snapchat",name:"Commercial (unskippable)",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Standard: 3–6s (fully unskippable) · Extended: 7–180s (first 6s unskippable)"},safe:{t:8,b:16,s:5,tL:"8%",bL:"16%",sL:"5%",pct:true},note:"Plays between Stories. Standard (3–6s) is fully unskippable — ideal for brand awareness. Extended (7–180s) has first 6s unskippable. Use Standard for most campaigns.",src:"https://forbusiness.snapchat.com/advertising/ad-formats"},
+  {id:73,cat:"Snapchat",badge:"b-snapchat",name:"Collection ad",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"Product tiles: JPG/PNG · max 5MB each"},video:{fmt:"MP4, MOV (H.264)",dur:"3–180s"},safe:{t:8,b:35,s:5,tL:"8%",bL:"35%",sL:"5%",pct:true},note:"Full-screen video/image with 4 product tiles at the bottom — bottom 35% is occupied by the product shelf. Best for e-commerce. Each tile needs an individual product image and URL. Dynamic version pulls from product catalogue.",src:"https://forbusiness.snapchat.com/advertising/ad-formats"},
+  {id:74,cat:"Snapchat",badge:"b-snapchat",name:"Spotlight ad",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"3–60s (under 10s recommended)"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"Placement within Snapchat's viral short-form video feed (like TikTok). Native-feeling vertical video. Heavy UI overlay — keep all key content in the centre third of the frame.",src:"https://forbusiness.snapchat.com/advertising/ad-formats"},
+  {id:75,cat:"Snapchat",badge:"b-snapchat",name:"Filter ad",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"PNG with transparent background · max 300KB"},video:null,safe:{t:17,b:17,s:9,tL:"17% (310px)",bL:"17% (310px)",sL:"9%",pct:true},note:"Branded overlay users apply to their own Snaps. Mandatory text, logos and legal copy must NOT be placed within 310px of top or bottom. Design must have a transparent background. Keep design to the edges — centre is left clear for user content.",src:"https://forbusiness.snapchat.com/advertising/ad-formats"},
+  {id:700,cat:"Snapchat",badge:"b-profile",name:"Profile & public account specs",w:null,h:null,ratio:null,device:null,isProfile:true,
+    rows:[
+      {label:"Business profile icon",val:"320×320 px · PNG or JPG · displayed as circle"},
+      {label:"Profile cover / header",val:"1080×1920 px · shown as a Story-style full-screen image"},
+      {label:"Sponsored snap (logo)",val:"Brand name max 25 characters · shown next to profile icon in Chat inbox"},
+    ],
+    note:"Snapchat's public profile acts more like a Story than a traditional page. The profile icon is your main brand mark — keep the logo centred and clear at small sizes.",src:null},
+  // ── NORWEGIAN PUBLISHERS ──────────────────────────────────────────────
   {id:100,cat:"Schibsted",badge:"b-schibsted",name:"Board",w:320,h:250,ratio:"32:25",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Standard mobile format on VG, Aftenposten, E24, BT etc. Retina delivery: 640×500 px. Recommend pairing with Netboard for cross-device coverage.",src:"https://schibstedforbusiness.com/no/en/spesifikasjoner/display/"},
   {id:101,cat:"Schibsted",badge:"b-schibsted",name:"Board XL",w:320,h:400,ratio:"4:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Larger mobile format, more creative space. Good for in-banner video campaigns.",src:"https://schibstedforbusiness.com/no/en/spesifikasjoner/display/"},
-  {id:102,cat:"Schibsted",badge:"b-schibsted",name:"Netboard",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Schibsted's most used desktop/tablet format. Appears between articles on front page and in article flow. Pair with Board for cross-device.",src:"https://schibstedforbusiness.com/no/en/spesifikasjoner/display/"},
+  {id:102,cat:"Schibsted",badge:"b-schibsted",name:"Netboard",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Schibsted's most used desktop/tablet format. Pair with Board for cross-device coverage.",src:"https://schibstedforbusiness.com/no/en/spesifikasjoner/display/"},
   {id:103,cat:"Schibsted",badge:"b-schibsted",name:"Brandboard",w:980,h:600,ratio:"49:30",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Large premium desktop/tablet format. High visibility and strong creative impact.",src:"https://schibstedforbusiness.com/no/en/spesifikasjoner/display/"},
-  {id:104,cat:"Schibsted",badge:"b-schibsted",name:"Fullscreen",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"400KB"},video:{fmt:"MP4 / VAST tag",dur:"Up to 30s"},safe:{t:"10%",b:"10%",s:"18%"},note:"Full-page takeover. Safe area approx. 1400×800 px centred. Works on all devices. Often frequency-capped at 1/day.",src:"https://schibstedforbusiness.com/no/en/spesifikasjoner/display/"},
-  {id:105,cat:"Schibsted",badge:"b-schibsted",name:"Wallpaper / Horseshoe",w:null,h:null,ratio:null,device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"400KB total"},video:null,safe:null,note:"Three files: 2× side panels 180×700 px + top strip 1010×150 px + background 1920×1300 px. Max 400KB total. Desktop and tablet only.",src:"https://schibstedforbusiness.com/no/en/spesifikasjoner/display/"},
+  {id:104,cat:"Schibsted",badge:"b-schibsted",name:"Fullscreen",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"400KB"},video:{fmt:"MP4 / VAST tag",dur:"Up to 30s"},safe:{t:10,b:10,s:18,tL:"10%",bL:"10%",sL:"18%",pct:true},note:"Full-page takeover. Safe area approx. 1400×800 px centred. Often frequency-capped at 1/day.",src:"https://schibstedforbusiness.com/no/en/spesifikasjoner/display/"},
+  {id:105,cat:"Schibsted",badge:"b-schibsted",name:"Wallpaper / Horseshoe",w:null,h:null,ratio:null,device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"400KB total"},video:null,safe:null,note:"Three files: 2× side panels 180×700 px + top strip 1010×150 px + background 1920×1300 px. Max 400KB total.",src:"https://schibstedforbusiness.com/no/en/spesifikasjoner/display/"},
   {id:106,cat:"Schibsted",badge:"b-schibsted",name:"Skyscraper",w:180,h:500,ratio:"9:25",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:null,safe:null,note:"Vertical sticky sidebar format. Desktop and tablet only.",src:"https://schibstedforbusiness.com/no/en/spesifikasjoner/display/"},
-  {id:110,cat:"Amedia",badge:"b-amedia",name:"Mobilbanner (Board)",w:320,h:250,ratio:"32:25",device:"Mobile",still:{fmt:"JPG, GIF, PNG, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s, recommended 15s"},safe:null,note:"One of Amedia's most used formats — runs on all Amedia newspapers on front page and articles. Also accepts 300×250.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display/mobilbanner"},
-  {id:111,cat:"Amedia",badge:"b-amedia",name:"Stort mobilbanner (Board XL)",w:320,h:400,ratio:"4:5",device:"Mobile",still:{fmt:"JPG, GIF, PNG, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Larger mobile banner with more creative space. Strong in-article visibility.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display"},
+  {id:110,cat:"Amedia",badge:"b-amedia",name:"Mobilbanner (Board)",w:320,h:250,ratio:"32:25",device:"Mobile",still:{fmt:"JPG, GIF, PNG, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s, recommended 15s"},safe:null,note:"One of Amedia's most used formats — runs on all Amedia newspapers. Also accepts 300×250.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display/mobilbanner"},
+  {id:111,cat:"Amedia",badge:"b-amedia",name:"Stort mobilbanner (Board XL)",w:320,h:400,ratio:"4:5",device:"Mobile",still:{fmt:"JPG, GIF, PNG, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Larger mobile banner with more creative space.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display"},
   {id:112,cat:"Amedia",badge:"b-amedia",name:"Netboard",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"JPG, GIF, PNG, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s, recommended 15s"},safe:null,note:"Standard desktop/tablet format between content across all Amedia titles.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display/netboard"},
   {id:113,cat:"Amedia",badge:"b-amedia",name:"Midtbanner",w:980,h:300,ratio:"49:15",device:"Desktop/Tablet",still:{fmt:"JPG, GIF, PNG, HTML5",kb:"150KB"},video:null,safe:null,note:"Wide prominent desktop banner placed high on the front page.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display/midtbanner"},
-  {id:114,cat:"Amedia",badge:"b-amedia",name:"Topbanner",w:980,h:150,ratio:"49:15",device:"Desktop/Tablet",still:{fmt:"JPG, GIF, PNG, HTML5",kb:"100KB"},video:null,safe:null,note:"Slim banner at the very top of the desktop page. High position but limited creative space.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display/toppbanner"},
-  {id:115,cat:"Amedia",badge:"b-amedia",name:"Fullskjerm",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, third-party script",kb:"2×150KB"},video:{fmt:"MP4 / script tag",dur:"Recommended 30s, max 60s"},safe:{t:"8%",b:"8%",s:"18%"},note:"Full-screen cross-device takeover on Amedia front pages and articles. Safe area: 1400×800 px landscape / 528×940 px portrait.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display/fullskjerm"},
-  {id:116,cat:"Amedia",badge:"b-amedia",name:"Topscroll",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG (images only, no script)",kb:"150KB"},video:{fmt:"Script tag (third-party streamed)",dur:"Any"},safe:{t:"9%",b:"9%",s:"18%"},note:"Premium top-of-front-page format covering ~80% of screen. Must be scrolled past before reaching content. Safe area 1400×800 px. Frequency 1/day.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display/topscroll"},
-  {id:120,cat:"Aller",badge:"b-aller",name:"Netboard",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"GIF, JPG, HTML5",kb:"100KB"},video:null,safe:null,note:"Standard desktop/tablet format on Aller titles — Se og Hør, KK, Mann, Dagbladet, Vi over 60 etc. Appears between content.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
-  {id:121,cat:"Aller",badge:"b-aller",name:"Board (Medium rectangle)",w:300,h:250,ratio:"6:5",device:"All",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"100KB"},video:null,safe:null,note:"Cross-device format. Also accepted as 320×250 on mobile. Standard run-of-site placement across all Aller titles.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
-  {id:122,cat:"Aller",badge:"b-aller",name:"Top banner",w:980,h:300,ratio:"49:15",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"100KB"},video:null,safe:null,note:"Top of page on desktop and tablet. High-visibility placement.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
-  {id:123,cat:"Aller",badge:"b-aller",name:"Brandboard",w:980,h:600,ratio:"49:30",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"150KB"},video:null,safe:null,note:"Large desktop format with strong creative impact. Placed on front page and articles.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
+  {id:114,cat:"Amedia",badge:"b-amedia",name:"Topbanner",w:980,h:150,ratio:"49:15",device:"Desktop/Tablet",still:{fmt:"JPG, GIF, PNG, HTML5",kb:"100KB"},video:null,safe:null,note:"Slim banner at the very top of the desktop page.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display/toppbanner"},
+  {id:115,cat:"Amedia",badge:"b-amedia",name:"Fullskjerm",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, third-party script",kb:"2×150KB"},video:{fmt:"MP4 / script tag",dur:"Recommended 30s, max 60s"},safe:{t:8,b:8,s:18,tL:"8%",bL:"8%",sL:"18%",pct:true},note:"Full-screen cross-device takeover. Safe area: 1400×800 px landscape / 528×940 px portrait.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display/fullskjerm"},
+  {id:116,cat:"Amedia",badge:"b-amedia",name:"Topscroll",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG (images only)",kb:"150KB"},video:{fmt:"Script tag (third-party)",dur:"Any"},safe:{t:9,b:9,s:18,tL:"9%",bL:"9%",sL:"18%",pct:true},note:"Premium top-of-front-page format covering ~80% of screen. Safe area 1400×800 px. Frequency 1/day.",src:"https://www.amediaannonse.no/annonsering/annonseformater-display/topscroll"},
+  {id:120,cat:"Aller",badge:"b-aller",name:"Netboard",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"GIF, JPG, HTML5",kb:"100KB"},video:null,safe:null,note:"Standard desktop/tablet format on Se og Hør, KK, Mann, Dagbladet etc.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
+  {id:121,cat:"Aller",badge:"b-aller",name:"Board (Medium rectangle)",w:300,h:250,ratio:"6:5",device:"All",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"100KB"},video:null,safe:null,note:"Cross-device format. Also accepted as 320×250 on mobile.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
+  {id:122,cat:"Aller",badge:"b-aller",name:"Top banner",w:980,h:300,ratio:"49:15",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"100KB"},video:null,safe:null,note:"Top of page on desktop and tablet.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
+  {id:123,cat:"Aller",badge:"b-aller",name:"Brandboard",w:980,h:600,ratio:"49:30",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"150KB"},video:null,safe:null,note:"Large desktop format with strong creative impact.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
   {id:124,cat:"Aller",badge:"b-aller",name:"Sticky skyscraper",w:300,h:600,ratio:"1:2",device:"Desktop",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"100KB"},video:null,safe:null,note:"Sticky in scroll on right/left side of desktop pages. Also available as 160×600 or 180×500.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
-  {id:125,cat:"Aller",badge:"b-aller",name:"Full screen",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"2×150KB"},video:{fmt:"Third-party tag",dur:"Recommended 15s"},safe:{t:"9%",b:"9%",s:"18%"},note:"Two 1920×1080 image files. Must be responsive. Safe area: 528×940 px portrait / 1400×940 px landscape. Cross-device.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
-  {id:126,cat:"Aller",badge:"b-aller",name:"Wallpaper",w:null,h:null,ratio:null,device:"Desktop",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"600KB total"},video:null,safe:null,note:"Delivered as: 1920×1300 px background + 1010×300 px top banner + 2× 180×700 px side panels. Background and top banner must be JPG/PNG/GIF (not script). Max 600KB total.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
-  {id:130,cat:"DN",badge:"b-dn",name:"Netboard",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag, 16:9",dur:"Recommended 15s, max 60s"},safe:null,note:"DN's primary desktop format. Appears in article flow and on the front page of DN.no. Also available programmatically.",src:"https://idn.dn.no/products/6065/dn-display-and-video"},
-  {id:131,cat:"DN",badge:"b-dn",name:"Board (mobile)",w:320,h:250,ratio:"32:25",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Standard mobile format on DN.no. Runs on front page and articles.",src:"https://idn.dn.no/products/6065/dn-display-and-video"},
-  {id:132,cat:"DN",badge:"b-dn",name:"Brandboard",w:980,h:600,ratio:"49:30",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Large premium desktop format. Strong impact on the DN front page — high CPM placement.",src:"https://idn.dn.no/products/6065/dn-display-and-video"},
-  {id:133,cat:"DN",badge:"b-dn",name:"Double Fullscreen",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, HTML5",kb:"2×150KB"},video:{fmt:"MP4 / VAST",dur:"Up to 30s"},safe:{t:"9%",b:"9%",s:"18%"},note:"DN's premium takeover — two fullscreen units in sequence. Very high impact and high CPM. Safe area approx. 1400×800 px centred.",src:"https://idn.dn.no/products/6065/dn-display-and-video"},
-  {id:134,cat:"DN",badge:"b-dn",name:"Content Frontrigg",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"JPG, PNG",kb:"100KB"},video:null,safe:null,note:"Native-style content placement at the very top of the DN front page. Highest visibility product on DN — blends with editorial flow.",src:"https://idn.dn.no/products/6065/dn-display-and-video"},
-  {id:135,cat:"DN",badge:"b-dn",name:"Pre-roll video",w:1280,h:720,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4 (H.264). Also 9:16 at 720×1280",dur:"16:9 any length · 9:16 max 6s"},safe:{t:"10%",b:"10%",s:"10%"},note:"Video pre-roll on DN.no. Available in landscape (1280×720) or vertical (720×1280). MP4 H.264 format.",src:"https://idn.dn.no/products/6065/dn-display-and-video/preroll"},
-  {id:140,cat:"Finansavisen",badge:"b-finansavisen",name:"Netboard",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Standard desktop/tablet format on Finansavisen.no. Appears in article flow and front page. Also available programmatically.",src:"https://annonseweb.finansavisen.no/products/1349/display"},
-  {id:141,cat:"Finansavisen",badge:"b-finansavisen",name:"Board (mobile)",w:320,h:250,ratio:"32:25",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Standard mobile format on Finansavisen.no. Audience is primarily business decision-makers and investors.",src:"https://annonseweb.finansavisen.no/products/1349/display"},
-  {id:142,cat:"Finansavisen",badge:"b-finansavisen",name:"Brandboard",w:980,h:600,ratio:"49:30",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Premium large desktop format. Strong creative impact for financial brands and B2B advertisers.",src:"https://annonseweb.finansavisen.no/products/1349/display"},
-  {id:143,cat:"Finansavisen",badge:"b-finansavisen",name:"Fullscreen",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, HTML5",kb:"400KB"},video:{fmt:"MP4 / VAST tag",dur:"Up to 30s"},safe:{t:"10%",b:"10%",s:"18%"},note:"Full-page takeover on Finansavisen.no. Safe area approx. 1400×800 px centred. High-impact format for financial brand campaigns.",src:"https://annonseweb.finansavisen.no/products/1349/display"},
+  {id:125,cat:"Aller",badge:"b-aller",name:"Full screen",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"2×150KB"},video:{fmt:"Third-party tag",dur:"Recommended 15s"},safe:{t:9,b:9,s:18,tL:"9%",bL:"9%",sL:"18%",pct:true},note:"Two 1920×1080 image files. Must be responsive. Safe area: 528×940 px portrait / 1400×940 px landscape.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
+  {id:126,cat:"Aller",badge:"b-aller",name:"Wallpaper",w:null,h:null,ratio:null,device:"Desktop",still:{fmt:"JPG, PNG, GIF, third-party tags",kb:"600KB total"},video:null,safe:null,note:"1920×1300 px background + 1010×300 px top banner + 2× 180×700 px side panels. Max 600KB total.",src:"https://en.annonse.aller.no/spesifikasjoner/displayannonsering"},
+  {id:130,cat:"DN",badge:"b-dn",name:"Netboard",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag, 16:9",dur:"Recommended 15s, max 60s"},safe:null,note:"DN's primary desktop format. Appears in article flow and on the front page of DN.no.",src:"https://idn.dn.no/products/6065/dn-display-and-video"},
+  {id:131,cat:"DN",badge:"b-dn",name:"Board (mobile)",w:320,h:250,ratio:"32:25",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Standard mobile format on DN.no.",src:"https://idn.dn.no/products/6065/dn-display-and-video"},
+  {id:132,cat:"DN",badge:"b-dn",name:"Brandboard",w:980,h:600,ratio:"49:30",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Large premium desktop format on DN front page.",src:"https://idn.dn.no/products/6065/dn-display-and-video"},
+  {id:133,cat:"DN",badge:"b-dn",name:"Double Fullscreen",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, HTML5",kb:"2×150KB"},video:{fmt:"MP4 / VAST",dur:"Up to 30s"},safe:{t:9,b:9,s:18,tL:"9%",bL:"9%",sL:"18%",pct:true},note:"DN's premium takeover — two fullscreen units in sequence. Safe area approx. 1400×800 px centred.",src:"https://idn.dn.no/products/6065/dn-display-and-video"},
+  {id:134,cat:"DN",badge:"b-dn",name:"Content Frontrigg",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"JPG, PNG",kb:"100KB"},video:null,safe:null,note:"Native-style content placement at the very top of the DN front page. Highest visibility product on DN.",src:"https://idn.dn.no/products/6065/dn-display-and-video"},
+  {id:135,cat:"DN",badge:"b-dn",name:"Pre-roll video",w:1280,h:720,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4 (H.264). Also 9:16 at 720×1280",dur:"16:9 any length · 9:16 max 6s"},safe:{t:10,b:10,s:10,tL:"10%",bL:"10%",sL:"10%",pct:true},note:"Video pre-roll on DN.no. Available in landscape (1280×720) or vertical (720×1280).",src:"https://idn.dn.no/products/6065/dn-display-and-video/preroll"},
+  {id:140,cat:"Finansavisen",badge:"b-finansavisen",name:"Netboard",w:580,h:400,ratio:"29:20",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Standard desktop/tablet format on Finansavisen.no.",src:"https://annonseweb.finansavisen.no/products/1349/display"},
+  {id:141,cat:"Finansavisen",badge:"b-finansavisen",name:"Board (mobile)",w:320,h:250,ratio:"32:25",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"100KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Standard mobile format. Audience is primarily business decision-makers and investors.",src:"https://annonseweb.finansavisen.no/products/1349/display"},
+  {id:142,cat:"Finansavisen",badge:"b-finansavisen",name:"Brandboard",w:980,h:600,ratio:"49:30",device:"Desktop/Tablet",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:{fmt:"MP4 / HTML5 tag",dur:"Max 60s"},safe:null,note:"Premium large desktop format for financial brands and B2B advertisers.",src:"https://annonseweb.finansavisen.no/products/1349/display"},
+  {id:143,cat:"Finansavisen",badge:"b-finansavisen",name:"Fullscreen",w:1920,h:1080,ratio:"16:9",device:"All",still:{fmt:"JPG, PNG, HTML5",kb:"400KB"},video:{fmt:"MP4 / VAST tag",dur:"Up to 30s"},safe:{t:10,b:10,s:18,tL:"10%",bL:"10%",sL:"18%",pct:true},note:"Full-page takeover on Finansavisen.no. Safe area approx. 1400×800 px centred.",src:"https://annonseweb.finansavisen.no/products/1349/display"},
 ];
 
-const CATS=["All","Google Display","Responsive Display","YouTube","Facebook","Instagram","LinkedIn","TikTok","Schibsted","Amedia","Aller","DN","Finansavisen"];
-let tab="All", q="";
+const CATS=["All","Google Display","YouTube","Facebook","Instagram","LinkedIn","TikTok","Snapchat","Schibsted","Amedia","Aller","DN","Finansavisen"];
+let tab="All",q="";
 
-function parseSafe(v,total){
-  if(!v)return 0;
-  return v.endsWith("%")?Math.round(total*parseFloat(v)/100):Math.round(parseFloat(v));
-}
 function deviceTag(d){
   if(!d||d==="All")return"";
   if(d==="Mobile")return`<span class="tag-mob">mobile</span>`;
   if(d==="Desktop"||d==="Desktop/Tablet")return`<span class="tag-desk">desktop</span>`;
   return"";
 }
+
+function buildSVG(f,W,H,labelMode){
+  if(!f.safe)return null;
+  const s=f.safe;
+  let tF,bF,sF;
+  if(s.pct){tF=s.t/100;bF=s.b/100;sF=s.s/100;}
+  else{const fw=f.w||300,fh=f.h||250;tF=s.t/fh;bF=s.b/fh;sF=s.s/fw;}
+  const tPx=Math.round(tF*H),bPx=Math.round(bF*H),sPx=Math.round(sF*W);
+  const safeH=H-tPx-bPx,safeW=W-sPx*2;
+  const fs=labelMode==="modal"?10:8;
+  let svg=`<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg" style="display:block">`;
+  svg+=`<rect width="${W}" height="${H}" fill="#dedad2"/>`;
+  if(tPx>0)svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="rgba(192,34,10,0.18)"/>`;
+  if(bPx>0)svg+=`<rect x="0" y="${H-bPx}" width="${W}" height="${bPx}" fill="rgba(192,34,10,0.18)"/>`;
+  if(sPx>0){
+    svg+=`<rect x="0" y="${tPx}" width="${sPx}" height="${safeH}" fill="rgba(176,96,0,0.15)"/>`;
+    svg+=`<rect x="${W-sPx}" y="${tPx}" width="${sPx}" height="${safeH}" fill="rgba(176,96,0,0.15)"/>`;
+  }
+  svg+=`<rect x="${sPx}" y="${tPx}" width="${safeW}" height="${safeH}" fill="rgba(45,122,34,0.14)"/>`;
+  svg+=`<rect x="${sPx}" y="${tPx}" width="${safeW}" height="${safeH}" fill="none" stroke="rgba(45,122,34,0.65)" stroke-width="1.5" stroke-dasharray="5,3"/>`;
+  // labels
+  const ff="-apple-system,sans-serif";
+  if(labelMode==="card"&&safeH>=12&&safeW>40){
+    svg+=`<text x="${W/2}" y="${tPx+safeH/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(45,122,34,0.95)" font-weight="600">Safe zone</text>`;
+  }
+  if(labelMode==="modal"){
+    if(tPx>=fs+4)svg+=`<text x="${W/2}" y="${tPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(192,34,10,0.9)" font-weight="500">UI overlay — ${s.tL}</text>`;
+    if(bPx>=fs+4)svg+=`<text x="${W/2}" y="${H-bPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(192,34,10,0.9)" font-weight="500">UI overlay — ${s.bL}</text>`;
+    if(safeH>=fs*3&&safeW>60){
+      svg+=`<text x="${W/2}" y="${tPx+safeH/2-fs*0.6}" text-anchor="middle" font-family="${ff}" font-size="${fs+1}" fill="rgba(45,122,34,1)" font-weight="700">✓ Safe zone</text>`;
+      svg+=`<text x="${W/2}" y="${tPx+safeH/2+fs*0.9}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(45,122,34,0.85)">Logos · Text · CTAs</text>`;
+    }
+    if(sPx>18&&safeH>40){
+      svg+=`<text x="${sPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,0.9)" font-weight="500" transform="rotate(-90,${sPx/2},${H/2})">${s.sL}</text>`;
+      svg+=`<text x="${W-sPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,0.9)" font-weight="500" transform="rotate(90,${W-sPx/2},${H/2})">${s.sL}</text>`;
+    }
+  }
+  svg+=`</svg>`;
+  return{svg,tPx,bPx,sPx,safeH,safeW};
+}
+
+function scaledDims(f,maxW,maxH){
+  if(!f.w||!f.h)return{w:maxW,h:Math.round(maxW*0.55)};
+  let w=maxW,h=Math.round(maxW*f.h/f.w);
+  if(h>maxH){h=maxH;w=Math.round(maxH*f.w/f.h);}
+  return{w,h};
+}
+
 function specBlock(f){
   if(!f.still&&!f.video)return"";
   if(f.still&&f.video){
@@ -200,36 +321,80 @@ function specBlock(f){
         ${f.video.kb?`<div class="spec-row">Max size <span class="spec-val">${f.video.kb}</span></div>`:""}
       </div></div>`;
   }
-  const s=f.still||f.video, label=f.still?"Still":"Video";
+  const s=f.still||f.video,label=f.still?"Still":"Video";
   return`<div class="specs-grid single"><div class="spec-col"><div class="spec-type">${label}</div>
     <div class="spec-row">Format <span class="spec-val">${s.fmt}</span></div>
     ${s.kb?`<div class="spec-row">Max size <span class="spec-val">${s.kb}</span></div>`:""}
     ${s.dur?`<div class="spec-row">Duration <span class="spec-val">${s.dur}</span></div>`:""}
   </div></div>`;
 }
+
 function cardHTML(f){
+  if(f.isProfile){
+    const rows=f.rows.map(r=>`<div class="prow"><span class="prow-label">${r.label}</span><span class="prow-val">${r.val}</span></div>`).join("");
+    return`<div class="card profile-card">
+      <div class="card-header">
+        <span class="card-title">${f.name}<span class="tag-profile">profile &amp; branding</span></span>
+        <span class="badge ${f.badge}">${f.cat}</span>
+      </div>
+      <div class="profile-rows">${rows}</div>
+      <div class="note">${f.note}</div>
+    </div>`;
+  }
   const dim=f.w&&f.h?`${f.w} × ${f.h}`:"Multiple files";
   const rat=f.ratio?` · ${f.ratio}`:"";
-  const safeStr=f.safe&&f.safe.t?`<div class="safe-row"><span class="dot dsafe"></span>Safe zone: ${f.safe.t} top · ${f.safe.b} bottom · ${f.safe.s} sides</div>`:"";
+  let szHtml="";
+  if(f.safe){
+    const{w,h}=scaledDims(f,260,155);
+    const d=buildSVG(f,w,h,"card");
+    if(d){
+      szHtml=`<div class="sz-wrap">
+        <div class="sz-label">Safe zones</div>
+        <div style="width:${w}px;height:${h}px;border-radius:4px;overflow:hidden;border:0.5px solid var(--border)">${d.svg}</div>
+        <div class="sz-legend">
+          <div class="sz-li"><div class="sz-dot sz-dot-safe"></div>Safe — logos &amp; text here</div>
+          <div class="sz-li"><div class="sz-dot sz-dot-danger"></div>UI overlay — avoid</div>
+          ${f.safe.s>0?`<div class="sz-li"><div class="sz-dot sz-dot-caution"></div>Edge caution</div>`:""}
+        </div>
+      </div>`;
+    }
+  } else if(f.w){
+    szHtml=`<p class="no-sz">No defined safe zone — keep 10px margin on all sides.</p>`;
+  }
   return`<div class="card" onclick="openModal(${f.id})">
     <div class="card-header">
       <span class="card-title">${f.name}${deviceTag(f.device)}</span>
       <span class="badge ${f.badge}">${f.cat}</span>
     </div>
     <div class="dims">${dim}<span class="dimunit"> px${rat}</span></div>
-    ${specBlock(f)}${safeStr}
+    ${specBlock(f)}${szHtml}
     <div class="note">${f.note}</div>
   </div>`;
 }
+
 function render(){
-  const g=document.getElementById("grid");
+  const container=document.getElementById("grid");
   const list=F.filter(f=>{
     const cm=tab==="All"||f.cat===tab;
-    const qm=!q||[f.name,f.cat,f.note||""].some(s=>s.toLowerCase().includes(q));
+    const qm=!q||[f.name,f.cat,f.note||"",(f.rows||[]).map(r=>r.label+" "+r.val).join(" ")].some(s=>s.toLowerCase().includes(q));
     return cm&&qm;
   });
-  g.innerHTML=list.length?list.map(cardHTML).join(""):`<div class="empty">No formats found.</div>`;
+  if(!list.length){container.innerHTML=`<div class="grid"><div class="empty">No formats found.</div></div>`;return;}
+
+  // Group: separate profile cards from format cards
+  const adCards=list.filter(f=>!f.isProfile);
+  const profCards=list.filter(f=>f.isProfile);
+
+  let html="";
+  if(adCards.length){
+    html+=`<div class="grid">${adCards.map(cardHTML).join("")}</div>`;
+  }
+  if(profCards.length){
+    html+=`<div class="section-head">Profile &amp; branding specs</div><div class="grid">${profCards.map(cardHTML).join("")}</div>`;
+  }
+  container.innerHTML=html;
 }
+
 function renderTabs(){
   document.getElementById("tabs").innerHTML=CATS.map(c=>
     `<button class="tab${tab===c?" active":""}" onclick="setTab('${c}')">${c}</button>`
@@ -237,31 +402,43 @@ function renderTabs(){
 }
 function setTab(c){tab=c;renderTabs();render();}
 document.getElementById("srch").addEventListener("input",e=>{q=e.target.value.toLowerCase();render();});
+
 function openModal(id){
-  const f=F.find(x=>x.id===id); if(!f)return;
+  const f=F.find(x=>x.id===id);if(!f||f.isProfile)return;
   const dim=f.w&&f.h?`${f.w} × ${f.h} px`:"Multiple files — see note";
   const rat=f.ratio||"—";
-  let vis="";
-  if(f.w&&f.h&&f.safe){
-    const mw=260,mh=190;
-    let vw=mw,vh=Math.round(mw*f.h/f.w);
-    if(vh>mh){vh=mh;vw=Math.round(mh*f.w/f.h);}
-    const st=parseSafe(f.safe.t,vh),sb=parseSafe(f.safe.b,vh),ss=parseSafe(f.safe.s,vw);
-    vis=`<div class="mvis"><div class="mcanvas" style="width:${vw}px;height:${vh}px">
-      <div style="position:absolute;top:0;left:0;right:0;height:${st}px;background:rgba(226,75,74,0.18);border-bottom:1px dashed rgba(226,75,74,0.6)"></div>
-      <div style="position:absolute;bottom:0;left:0;right:0;height:${sb}px;background:rgba(226,75,74,0.18);border-top:1px dashed rgba(226,75,74,0.6)"></div>
-      <div style="position:absolute;top:0;left:0;bottom:0;width:${ss}px;background:rgba(186,117,23,0.15);border-right:1px dashed rgba(186,117,23,0.5)"></div>
-      <div style="position:absolute;top:0;right:0;bottom:0;width:${ss}px;background:rgba(186,117,23,0.15);border-left:1px dashed rgba(186,117,23,0.5)"></div>
-      <div style="position:absolute;top:${st}px;left:${ss}px;right:${ss}px;bottom:${sb}px;border:1px dashed rgba(99,153,34,0.7);background:rgba(99,153,34,0.07);display:flex;align-items:center;justify-content:center">
-        <span style="font-size:10px;color:rgba(99,153,34,0.9);font-weight:500">safe zone</span>
-      </div>
-      <div style="position:absolute;bottom:3px;right:5px;font-size:9px;color:#9b9b94">${vw}×${vh} (scaled)</div>
-    </div></div>
-    <div class="mlegend">
-      <span class="ml-item"><span class="dot dsafe" style="display:inline-block"></span>Safe zone</span>
-      <span class="ml-item"><span class="dot" style="display:inline-block;background:#BA7517"></span>Caution sides</span>
-      <span class="ml-item"><span class="dot" style="display:inline-block;background:#E24B4A"></span>UI overlay risk</span>
-    </div>`;
+  let szSection="";
+  if(f.safe){
+    const{w,h}=scaledDims(f,380,235);
+    const d=buildSVG(f,w,h,"modal");
+    if(d){
+      const fw=f.w||1920,fh=f.h||1080;
+      const tA=f.safe.pct?Math.round(fh*f.safe.t/100)+"px":f.safe.tL;
+      const bA=f.safe.pct?Math.round(fh*f.safe.b/100)+"px":f.safe.bL;
+      const sA=f.safe.pct?Math.round(fw*f.safe.s/100)+"px":f.safe.sL;
+      const swA=f.safe.pct?Math.round(fw*(1-2*f.safe.s/100))+"px":(fw-2*f.safe.s)+"px";
+      const shA=f.safe.pct?Math.round(fh*(1-f.safe.t/100-f.safe.b/100))+"px":(fh-f.safe.t-f.safe.b)+"px";
+      szSection=`<div style="margin-bottom:1.25rem">
+        <div class="modal-sz-title">Safe zone diagram — proportional to actual format</div>
+        <div class="modal-sz-wrap"><div class="modal-canvas" style="width:${w}px;height:${h}px;border-radius:6px;overflow:hidden">${d.svg}</div></div>
+        <div class="zone-explanations">
+          <div class="zone-box danger"><div class="zone-swatch danger"></div><div>
+            <div class="zone-tt">UI overlay zone — keep clear of logos and text</div>
+            <div class="zone-td">Top ${f.safe.tL} (≈${tA}) and bottom ${f.safe.bL} (≈${bA}) are covered by platform UI — buttons, captions, progress bars, CTAs. Anything placed here risks being hidden.</div>
+          </div></div>
+          <div class="zone-box caution"><div class="zone-swatch caution"></div><div>
+            <div class="zone-tt">Side margins — use with caution</div>
+            <div class="zone-td">${f.safe.sL} each side (≈${sA}). Backgrounds and non-critical visuals are fine here, but avoid important elements — cropping can occur across device sizes.</div>
+          </div></div>
+          <div class="zone-box safe"><div class="zone-swatch safe"></div><div>
+            <div class="zone-tt">Safe zone — all logos, text and CTAs must sit here</div>
+            <div class="zone-td">Approx. ${swA} wide × ${shA} tall. Every element your audience must see — brand logo, headline, call to action — belongs inside this area on all devices.</div>
+          </div></div>
+        </div>
+      </div>`;
+    }
+  } else {
+    szSection=`<p class="no-sz" style="margin-bottom:1rem">No specific safe zone defined. Apply a 10px minimum margin on all sides and avoid placing critical content at the very edges.</p>`;
   }
   let mspecs="";
   if(f.still&&f.video){
@@ -288,7 +465,7 @@ function openModal(id){
     <div><button class="mclose" onclick="closeModal()">×</button>
     <p class="mtitle">${f.name}${deviceTag(f.device)}</p>
     <p class="mcat">${f.cat} · ${rat} · ${dim}</p></div>
-    ${vis}${mspecs}
+    ${szSection}${mspecs}
     <div class="mnote">${f.note}</div>${srcLine}`;
   document.getElementById("modal").style.display="flex";
 }
