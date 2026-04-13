@@ -427,19 +427,16 @@ function buildSVG(f,W,H,labelMode){
     svg+=`<polygon points="${pts}" fill="none" stroke="${SS}" stroke-width="2.5" stroke-dasharray="6,3"/>`;
     // Labels — all placed INSIDE their zones
     if(isModal){
-      // Top danger label (centred in top band)
+      // Top danger label
       if(tPx>fs+2) svg+=`<text x="${W/2}" y="${tPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.tL}</text>`;
       // Bottom danger label
       if(bPx>fs+2) svg+=`<text x="${W/2}" y="${H-bPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.bL}</text>`;
-      // Left caution label (rotated, inside left strip)
-      if(lPx>12) svg+=`<text x="${lPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="600" transform="rotate(-90,${lPx/2},${H/2})">${s.lL}</text>`;
-      // Right narrow label (top notch) — inside the narrow strip
-      if(rN>8&&notchH>fs+4) svg+=`<text x="${W-rN/2}" y="${tPx+notchH/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="700">${s.lL}</text>`;
-      // Right wide label (below step) — inside the wide strip
-      if(rW>12) svg+=`<text x="${W-rW/2}" y="${tPx+notchH+(safeH-notchH)/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="700">${s.rL}</text>`;
-      // Step annotation — small arrow inside the safe zone pointing to the step
-      const stepY=tPx+notchH;
-      svg+=`<text x="${W-rW-4}" y="${stepY-3}" text-anchor="end" font-family="${ff}" font-size="${fs-1}" fill="${DT}">← step</text>`;
+      // Left side label — horizontal, in upper part of safe zone near left edge with arrow
+      svg+=`<text x="${lPx+4}" y="${tPx+fs+4}" text-anchor="start" font-family="${ff}" font-size="${fs}" fill="${CT}" font-weight="700">← ${s.lL}</text>`;
+      // Right narrow strip label — horizontal inside safe zone near top-right with arrow
+      svg+=`<text x="${W-rW-4}" y="${tPx+fs+4}" text-anchor="end" font-family="${ff}" font-size="${fs}" fill="${CT}" font-weight="700">${s.lL} →</text>`;
+      // Right wide strip label — horizontal inside safe zone near step line with arrow
+      svg+=`<text x="${W-rW-4}" y="${tPx+notchH+fs+4}" text-anchor="end" font-family="${ff}" font-size="${fs}" fill="${CT}" font-weight="700">${s.rL} →</text>`;
       // Safe zone centre label
       const safeCx=lPx+(W-rW-lPx)/2;
       const safeCy=tPx+safeH/2;
@@ -460,16 +457,12 @@ function buildSVG(f,W,H,labelMode){
     // Left caution
     svg+=`<rect x="0" y="${tPx}" width="${lPx}" height="${safeH}" fill="${CL}"/>`;
     // Right: NOTCH in bottom-right corner
-    // Top portion: standard width (6%) for top 55% of safe height
-    // Bottom portion: WIDER (doubles) for bottom 45% — where CTA button sits
     const rNotchH=Math.round(safeH*0.45);
-    const rTop=rPx;                    // standard 6%
-    const rBot=Math.round(rPx*2.2);   // step inward — clearly visible
-    // Top-right standard strip
+    const rTop=rPx;
+    const rBot=Math.round(rPx*2.2);
     svg+=`<rect x="${W-rTop}" y="${tPx}" width="${rTop}" height="${safeH-rNotchH}" fill="${CR}"/>`;
-    // Bottom-right wide strip (the step)
     svg+=`<rect x="${W-rBot}" y="${tPx+safeH-rNotchH}" width="${rBot}" height="${rNotchH}" fill="${CR}"/>`;
-    // Bold step line at transition
+    // Bold step line
     svg+=`<line x1="${W-rBot}" y1="${tPx+safeH-rNotchH}" x2="${W}" y2="${tPx+safeH-rNotchH}" stroke="rgba(192,34,10,0.9)" stroke-width="2.5"/>`;
     // Safe zone L-shape
     const pts=[
@@ -482,19 +475,17 @@ function buildSVG(f,W,H,labelMode){
     ].join(' ');
     svg+=`<polygon points="${pts}" fill="${SF}"/>`;
     svg+=`<polygon points="${pts}" fill="none" stroke="${SS}" stroke-width="2.5" stroke-dasharray="6,3"/>`;
-    // Labels — all INSIDE their zones
+    // Labels — all horizontal, inside their zones
     if(isModal){
       if(tPx>fs+2) svg+=`<text x="${W/2}" y="${tPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.tL}</text>`;
       if(bPx>fs+2) svg+=`<text x="${W/2}" y="${H-bPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.bL}</text>`;
-      if(lPx>12) svg+=`<text x="${lPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="600" transform="rotate(-90,${lPx/2},${H/2})">${s.lL}</text>`;
-      // Right top strip label (inside)
-      if(rTop>8&&(safeH-rNotchH)>fs+4) svg+=`<text x="${W-rTop/2}" y="${tPx+(safeH-rNotchH)/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="700">${s.rL}</text>`;
-      // Right bottom wider strip label (inside)
-      if(rBot>12&&rNotchH>fs+4) svg+=`<text x="${W-rBot/2}" y="${tPx+safeH-rNotchH/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="700">CTA area</text>`;
-      // Step annotation inside safe zone
-      const stepY=tPx+safeH-rNotchH;
-      svg+=`<text x="${W-rBot-4}" y="${stepY-3}" text-anchor="end" font-family="${ff}" font-size="${fs-1}" fill="${DT}">← step</text>`;
-      // Safe zone centre (use upper/wider part of the L for centering)
+      // Left side label — horizontal inside safe zone
+      svg+=`<text x="${lPx+4}" y="${tPx+fs+4}" text-anchor="start" font-family="${ff}" font-size="${fs}" fill="${CT}" font-weight="700">← ${s.lL}</text>`;
+      // Right standard top label — inside safe zone pointing right
+      svg+=`<text x="${W-rTop-4}" y="${tPx+(safeH-rNotchH)/2+fs/3}" text-anchor="end" font-family="${ff}" font-size="${fs}" fill="${CT}" font-weight="700">${s.rL} →</text>`;
+      // Right wider bottom label — inside the safe zone's lower-left, pointing right with clear text
+      svg+=`<text x="${W-rBot-4}" y="${tPx+safeH-rNotchH/2+fs/3}" text-anchor="end" font-family="${ff}" font-size="${fs}" fill="${CT}" font-weight="700">CTA button zone →</text>`;
+      // Safe zone centre
       const safeCx=lPx+(W-rTop-lPx)/2;
       const safeCy=tPx+(safeH-rNotchH)/2;
       svg+=`<text x="${safeCx}" y="${safeCy-fs*0.7}" text-anchor="middle" font-family="${ff}" font-size="${fs+1}" fill="${ST}" font-weight="700">✓ Safe zone</text>`;
@@ -516,8 +507,9 @@ function buildSVG(f,W,H,labelMode){
       if(tPx>fs+2) svg+=`<text x="${W/2}" y="${tPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.tL}</text>`;
       if(bPx>fs+2) svg+=`<text x="${W/2}" y="${H-bPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="${DT}" font-weight="600">UI overlay — ${s.bL}</text>`;
       const lL=s.lL||s.sL||""; const rL=s.rL||s.sL||"";
-      if(lPx>12) svg+=`<text x="${lPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="600" transform="rotate(-90,${lPx/2},${H/2})">${lL}</text>`;
-      if(rPx>12) svg+=`<text x="${W-rPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="${CT}" font-weight="600" transform="rotate(90,${W-rPx/2},${H/2})">${rL}</text>`;
+      // Side labels: horizontal inside safe zone with arrows pointing to the edge
+      if(lL) svg+=`<text x="${lPx+4}" y="${tPx+fs+4}" text-anchor="start" font-family="${ff}" font-size="${fs}" fill="${CT}" font-weight="700">← ${lL}</text>`;
+      if(rL) svg+=`<text x="${W-rPx-4}" y="${tPx+fs+4}" text-anchor="end" font-family="${ff}" font-size="${fs}" fill="${CT}" font-weight="700">${rL} →</text>`;
       const cx=lPx+safeW/2, cy=tPx+safeH/2;
       if(safeH>fs*3&&safeW>50){
         svg+=`<text x="${cx}" y="${cy-fs*0.7}" text-anchor="middle" font-family="${ff}" font-size="${fs+1}" fill="${ST}" font-weight="700">✓ Safe zone</text>`;
