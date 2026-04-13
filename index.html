@@ -7,28 +7,44 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#ffffff;--bg2:#f7f6f3;--bg3:#f0efe9;
-  --text:#1a1a18;--text2:#6b6b66;--text3:#9b9b94;
-  --border:rgba(26,26,24,0.12);--border2:rgba(26,26,24,0.25);
+  --bg:#ffffff;--bg2:#f4f7f5;--bg3:#edf2ee;
+  --text:#1b3a2d;--text2:#4a6659;--text3:#8aaa98;
+  --border:rgba(27,58,45,0.13);--border2:rgba(27,58,45,0.28);
   --radius-md:8px;--radius-lg:12px;
   --font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --safe:#2d7a22;--safe-bg:rgba(45,122,34,0.10);--safe-border:rgba(45,122,34,0.55);
   --caution:#b06000;--caution-bg:rgba(176,96,0,0.10);--caution-border:rgba(176,96,0,0.45);
-  --danger:#c0220a;--danger-bg:rgba(192,34,10,0.10);--danger-border:rgba(192,34,10,0.45);
+  --noa-green:#1b3a2d;--noa-green-mid:#2a5c42;--noa-green-light:#e8f0ec;--noa-accent:#3d7a58;
+    --danger:#c0220a;--danger-bg:rgba(192,34,10,0.10);--danger-border:rgba(192,34,10,0.45);
 }
 @media(prefers-color-scheme:dark){
-  :root{--bg:#1a1a18;--bg2:#242422;--bg3:#2e2e2b;--text:#f0efe9;--text2:#a0a09a;--text3:#6b6b66;--border:rgba(240,239,233,0.1);--border2:rgba(240,239,233,0.22)}
+  :root{--bg:#0f2219;--bg2:#162d1f;--bg3:#1b3a2d;--noa-green:#1b3a2d;--noa-green-mid:#2a5c42;--text:#e8f0ec;--text2:#8aaa98;--text3:#4a6659;--border:rgba(232,240,236,0.1);--border2:rgba(232,240,236,0.22)}
 }
 body{font-family:var(--font);background:var(--bg3);color:var(--text);min-height:100vh}
-header{background:var(--bg);border-bottom:0.5px solid var(--border2);padding:1.25rem 2rem}
-header h1{font-size:18px;font-weight:500;margin-bottom:2px}
-header p{font-size:13px;color:var(--text2)}
+header{
+  background:var(--noa-green);
+  border-bottom:none;
+  padding:0;
+  position:sticky;top:0;z-index:50;
+  box-shadow:0 2px 12px rgba(0,0,0,0.18);
+}
+.header-inner{
+  max-width:1280px;margin:0 auto;
+  padding:0.75rem 1.5rem;
+  display:flex;align-items:center;gap:1.25rem;
+}
+.header-logo-link{display:flex;align-items:center;flex-shrink:0}
+.header-logo{height:28px;width:auto;display:block;filter:brightness(0) invert(1)}
+.header-divider{width:1px;height:24px;background:rgba(255,255,255,0.25);flex-shrink:0}
+.header-title-wrap{}
+header h1{font-size:14px;font-weight:500;color:rgba(255,255,255,0.95);margin-bottom:1px;letter-spacing:0.01em}
+.header-sub{font-size:11px;color:rgba(255,255,255,0.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
 .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center}
 .tabs{display:flex;gap:6px;flex-wrap:wrap;flex:1}
 .tab{padding:6px 13px;border:0.5px solid var(--border2);border-radius:var(--radius-md);font-size:13px;cursor:pointer;background:var(--bg);color:var(--text2);transition:all 0.15s;white-space:nowrap;font-family:var(--font)}
 .tab:hover{color:var(--text);border-color:var(--text3)}
-.tab.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.tab.active{background:var(--noa-green);color:#fff;border-color:var(--noa-green)}
 .search{padding:7px 12px;border:0.5px solid var(--border2);border-radius:var(--radius-md);font-size:13px;background:var(--bg);color:var(--text);font-family:var(--font);min-width:180px}
 .search::placeholder{color:var(--text3)}
 .search:focus{outline:none;border-color:var(--text3)}
@@ -77,7 +93,7 @@ header p{font-size:13px;color:var(--text2)}
 .prow-label{color:var(--text2)}
 .prow-val{color:var(--text);font-weight:500;text-align:right}
 /* section divider */
-.section-head{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin:1.5rem 0 0.75rem;padding-bottom:6px;border-bottom:0.5px solid var(--border)}
+.section-head{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--noa-green);margin:1.5rem 0 0.75rem;padding-bottom:6px;border-bottom:1.5px solid var(--noa-green)}
 /* Modal */
 .modal-bd{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:100;padding:1rem}
 .modal{background:var(--bg);border-radius:var(--radius-lg);border:0.5px solid var(--border2);padding:1.5rem;max-width:520px;width:100%;max-height:90vh;overflow-y:auto}
@@ -109,13 +125,21 @@ header p{font-size:13px;color:var(--text2)}
 .src-link{font-size:11px;color:var(--text3)}
 .src-link a{color:var(--text3)}
 .empty{padding:3rem;text-align:center;color:var(--text2);font-size:14px}
-footer{text-align:center;font-size:12px;color:var(--text3);padding:2rem}
+footer{text-align:center;font-size:12px;color:var(--text3);padding:2rem;border-top:0.5px solid var(--border)}
 </style>
 </head>
 <body>
 <header>
-  <h1>Ad format reference</h1>
-  <p>Google · YouTube · Facebook · Instagram · LinkedIn · TikTok · Snapchat · Schibsted · Amedia · Aller · DN · Finansavisen — last reviewed April 2026</p>
+  <div class="header-inner">
+    <a href="https://noaconnect.no" target="_blank" rel="noopener" class="header-logo-link">
+      <img src="data:image/webp;base64,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" alt="NoA Connect" class="header-logo" />
+    </a>
+    <div class="header-divider"></div>
+    <div class="header-title-wrap">
+      <h1>Ad format reference</h1>
+      <p class="header-sub">Google · YouTube · Facebook · Instagram · LinkedIn · TikTok · Snapchat · Norwegian publishers — last reviewed April 2026</p>
+    </div>
+  </div>
 </header>
 <div class="main">
   <div class="controls">
@@ -127,7 +151,14 @@ footer{text-align:center;font-size:12px;color:var(--text3);padding:2rem}
 <div id="modal" style="display:none" class="modal-bd">
   <div class="modal" id="mi"></div>
 </div>
-<footer>Specs change — always verify against official platform and publisher docs before submitting material.</footer>
+<footer>
+  <div style="margin-bottom:6px">
+    <a href="https://noaconnect.no" target="_blank" rel="noopener" style="display:inline-block">
+      <img src="data:image/webp;base64,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" alt="NoA Connect" style="height:20px;opacity:0.4" />
+    </a>
+  </div>
+  <p>Specs change — always verify against official platform and publisher docs before submitting material.</p>
+</footer>
 <script>
 // ─── DATA ────────────────────────────────────────────────────────────────────
 // safe: t/b/s are numbers (percent or px), tLabel/bLabel/sLabel are display strings, isPercent flag
@@ -160,6 +191,56 @@ const F=[
     ],
     note:"Asset-based format — you provide the building blocks, Google's algorithm assembles and tests combinations across the entire Display Network automatically. Run fixed-size uploaded banners alongside if you have strict brand guidelines or need guaranteed placement control.",
     src:"https://support.google.com/google-ads/answer/7031480"},
+  // ── DEMAND GEN ───────────────────────────────────────────────────────
+  {id:21,cat:"Google Display",badge:"b-responsive",name:"Demand Gen — single image",w:null,h:null,ratio:null,device:"All",
+    rows:[
+      {label:"Landscape image (required)",val:"1200×628 px rec. · min 600×314 px · 1.91:1 ratio · max 5MB"},
+      {label:"Square image (required)",val:"1200×1200 px rec. · min 300×300 px · 1:1 ratio · max 5MB"},
+      {label:"Portrait image (optional)",val:"960×1200 px rec. · min 480×600 px · 4:5 ratio · max 5MB"},
+      {label:"Vertical image (optional)",val:"1080×1920 px rec. · min 600×1067 px · 9:16 · for YouTube Shorts only"},
+      {label:"Max images per ad",val:"Up to 20 — upload 3 of each ratio for best placement coverage"},
+      {label:"Logo (square, required)",val:"1200×1200 px rec. · min 128×128 px · 1:1 · max 5MB · transparent bg preferred"},
+      {label:"Headline",val:"Max 40 characters — up to 5"},
+      {label:"Description",val:"Max 90 characters — up to 5"},
+      {label:"Business name",val:"Max 25 characters — required"},
+      {label:"Placements",val:"YouTube feed, YouTube Shorts, Discover, Gmail, Google Display Network"},
+      {label:"Safe area",val:"Keep text & logos in centre 80% — edges risk cropping across placements"},
+    ],
+    still:{fmt:"JPG, PNG — no animated GIF",kb:"5MB per asset"},video:null,safe:null,
+    note:"Demand Gen replaced Discovery Ads in 2024 and absorbed Video Action Campaigns in 2025. Single image ads appear natively in Google feeds — YouTube home, Discover and Gmail. Upload all three image ratios for maximum placement coverage across devices.",
+    src:"https://support.google.com/google-ads/answer/13704860"},
+  {id:22,cat:"Google Display",badge:"b-responsive",name:"Demand Gen — carousel",w:null,h:null,ratio:null,device:"All",
+    rows:[
+      {label:"Cards per ad",val:"2–10 image cards — displayed in upload order"},
+      {label:"Landscape card",val:"1200×628 px rec. · min 600×314 px · 1.91:1 · max 5MB"},
+      {label:"Square card",val:"1200×1200 px rec. · min 300×300 px · 1:1 · max 5MB"},
+      {label:"Portrait card (optional)",val:"960×1200 px rec. · min 480×600 px · 4:5 · max 5MB"},
+      {label:"Aspect ratio rule",val:"All cards in one carousel must use the same aspect ratio"},
+      {label:"Logo (square, required)",val:"1200×1200 px rec. · min 144×144 px · max 150KB · transparent bg"},
+      {label:"Ad-level headline",val:"Max 40 characters — shows regardless of which card is displayed"},
+      {label:"Card headline",val:"Max 40 characters per card (not shown on Discover — uses ad-level headline)"},
+      {label:"Description",val:"Max 90 characters — ad level only"},
+      {label:"Business name",val:"Max 25 characters — required"},
+      {label:"Placements",val:"YouTube, Discover, Gmail — swipeable native carousel"},
+    ],
+    still:{fmt:"JPG, PNG — no animated GIF",kb:"5MB per image"},video:null,safe:null,
+    note:"Carousel ads let you tell a story across 2–10 images. Cards are shown in the order uploaded. Test one carousel with landscape images and one with square to find what works best. Note: product feeds from Google Merchant Center cannot currently be used with carousel ads.",
+    src:"https://support.google.com/google-ads/answer/13704860"},
+  {id:23,cat:"Google Display",badge:"b-responsive",name:"Demand Gen — video",w:null,h:null,ratio:null,device:"All",
+    rows:[
+      {label:"Landscape video (16:9)",val:"1920×1080 px (HD) · hosted on YouTube · no max length, under 3 min recommended"},
+      {label:"Square video (1:1)",val:"1080×1080 px (HD) · hosted on YouTube · no max length, under 3 min recommended"},
+      {label:"Vertical video (9:16)",val:"1080×1920 px · hosted on YouTube · max 60s · 10–20s recommended · YouTube Shorts"},
+      {label:"Minimum duration",val:"6 seconds — 15s or longer recommended for best reach"},
+      {label:"Quantity",val:"Up to 5 videos per ratio — upload at least 1 of each ratio for full coverage"},
+      {label:"Hosting",val:"All videos must be uploaded to YouTube (public or unlisted) before use"},
+      {label:"Image assets also required",val:"Landscape + square images still needed alongside video assets"},
+      {label:"Placements",val:"YouTube in-stream, YouTube Shorts, YouTube feed, Discover, Gmail, GDN"},
+      {label:"New in 2025",val:"Auto video enhancements — Google can create shorter clips and adapt aspect ratios"},
+    ],
+    still:{fmt:"JPG, PNG images still required",kb:"5MB per image"},video:{fmt:"MP4 (H.264) hosted on YouTube",dur:"Min 6s · 15s+ recommended"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},
+    note:"Video is optional in Demand Gen but strongly recommended — it significantly expands reach across YouTube placements. Upload horizontal (16:9) for in-stream and feed, vertical (9:16) for Shorts, and square (1:1) for maximum coverage. Videos must be hosted on YouTube before adding to the campaign.",
+    src:"https://support.google.com/google-ads/answer/13704860"},
   // ── YOUTUBE ───────────────────────────────────────────────────────────
   {id:9,cat:"YouTube",badge:"b-youtube",name:"Skippable in-stream",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Min 12s — skip after 5s"},safe:{t:14,b:35,s:10,tL:"14%",bL:"35%",sL:"10%",pct:true},note:"Pre/mid/post-roll. Key message must land in the first 5 seconds. Bottom 35% is heavily overlaid by skip button and info cards.",src:"https://support.google.com/google-ads/answer/2375464"},
   {id:10,cat:"YouTube",badge:"b-youtube",name:"Non-skippable in-stream",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Max 15s"},safe:{t:14,b:20,s:10,tL:"14%",bL:"20%",sL:"10%",pct:true},note:"No skip — every second must earn attention.",src:"https://support.google.com/google-ads/answer/2375464"},
@@ -170,7 +251,7 @@ const F=[
   // ── FACEBOOK ──────────────────────────────────────────────────────────
   {id:30,cat:"Facebook",badge:"b-facebook",name:"Feed — square",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 241 min"},safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"Primary recommended format — works across all placements on desktop and mobile.",src:"https://www.facebook.com/business/ads-guide"},
   {id:31,cat:"Facebook",badge:"b-facebook",name:"Feed — portrait",w:1080,h:1350,ratio:"4:5",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 241 min"},safe:{t:5,b:12,s:5,tL:"5%",bL:"12%",sL:"5%",pct:true},note:"More screen real estate on mobile — best performing ratio in the feed. Mobile only.",src:"https://www.facebook.com/business/ads-guide"},
-  {id:32,cat:"Facebook",badge:"b-facebook",name:"Stories / Reels",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Max 15s (Stories)"},safe:{t:14,b:20,s:5,tL:"14%",bL:"20%",sL:"5%",pct:true},note:"Full-screen vertical. Top 14% shows profile info, bottom 20% has CTA and swipe-up UI. Keep logos and text in the middle band.",src:"https://www.facebook.com/business/ads-guide"},
+  {id:32,cat:"Facebook",badge:"b-facebook",name:"Stories / Reels",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Max 15s (Stories)"},safe:{t:11,b:22,l:3,r:3,tL:"220px (11%)",bL:"420px (22%)",lL:"35px",rL:"35px",pct:false,px:true},note:"Reels (paid): safe zone is 1010×1280 px — 220px top, 420px bottom. Stories: 250px top & bottom. Always design to the stricter Reels safe zone so creative works when boosted.",src:"https://www.facebook.com/business/help/980593475366490"},
   {id:33,cat:"Facebook",badge:"b-facebook",name:"Carousel",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 240s per card"},safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"2–10 cards, each can link separately. Keep visual style consistent across cards.",src:"https://www.facebook.com/business/ads-guide"},
   {id:300,cat:"Facebook",badge:"b-profile",name:"Profile & cover specs",w:null,h:null,ratio:null,device:null,isProfile:true,
     rows:[
@@ -183,8 +264,8 @@ const F=[
   // ── INSTAGRAM ─────────────────────────────────────────────────────────
   {id:40,cat:"Instagram",badge:"b-instagram",name:"Feed — square",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 60s"},safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"Classic format — safe across all placements. Good starting point for any campaign.",src:"https://www.facebook.com/business/ads-guide/instagram"},
   {id:41,cat:"Instagram",badge:"b-instagram",name:"Feed — portrait",w:1080,h:1350,ratio:"4:5",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 60s"},safe:{t:5,b:12,s:5,tL:"5%",bL:"12%",sL:"5%",pct:true},note:"Recommended: more feed real estate on mobile. Higher engagement than square in most cases.",src:"https://www.facebook.com/business/ads-guide/instagram"},
-  {id:42,cat:"Instagram",badge:"b-instagram",name:"Stories",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Max 15s"},safe:{t:14,b:20,s:5,tL:"14%",bL:"20%",sL:"5%",pct:true},note:"Top 14% (≈250px): profile picture and username. Bottom 20% (≈340px): CTA, swipe-up link. Keep all logos and text in the safe middle band.",src:"https://www.facebook.com/business/ads-guide/instagram"},
-  {id:43,cat:"Instagram",badge:"b-instagram",name:"Reels",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"Max 90s"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"Vertical video only. Design for sound-off — add captions. Hook in the first 3 seconds. Like/comment buttons overlay the right side.",src:"https://www.facebook.com/business/ads-guide/instagram"},
+  {id:42,cat:"Instagram",badge:"b-instagram",name:"Stories",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Max 15s"},safe:{t:13,b:13,l:6,r:6,tL:"250px (13%)",bL:"250px (13%)",lL:"65px",rL:"65px",pct:false,px:true},note:"Top 250px: profile picture and username. Bottom 250px: reply bar and CTA. Keep 65px clear on each side. Safe content area: approx 950×1420 px centred.",src:"https://www.facebook.com/business/ads-guide/instagram"},
+  {id:43,cat:"Instagram",badge:"b-instagram",name:"Reels",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"Max 90s"},safe:{t:6,b:17,l:6,r:11,tL:"108px (6%)",bL:"320px (17%)",lL:"60px",rL:"120px",pct:false,px:true},note:"Vertical video only. Asymmetric safe zone: right side needs 120px clearance (like/comment/share buttons), left only 60px. Bottom 320px has captions and audio info. Design for sound-off — add captions.",src:"https://www.facebook.com/business/ads-guide/instagram"},
   {id:44,cat:"Instagram",badge:"b-instagram",name:"Carousel",w:1080,h:1080,ratio:"1:1",device:"All",still:{fmt:"JPG, PNG",kb:"30MB"},video:{fmt:"MP4, MOV",dur:"Up to 60s per card"},safe:{t:5,b:5,s:5,tL:"5%",bL:"5%",sL:"5%",pct:true},note:"Up to 10 cards — first card is the hook. Square only in feed.",src:"https://www.facebook.com/business/ads-guide/instagram"},
   {id:400,cat:"Instagram",badge:"b-profile",name:"Profile & cover specs",w:null,h:null,ratio:null,device:null,isProfile:true,
     rows:[
@@ -210,9 +291,9 @@ const F=[
     ],
     note:"LinkedIn uses different cover dimensions for personal profiles (1584×396) vs company pages (1128×191). Double-check which you're designing for before exporting.",src:"https://business.linkedin.com/advertise/ads/sponsored-content/single-image-ads-specs"},
   // ── TIKTOK ────────────────────────────────────────────────────────────
-  {id:60,cat:"TikTok",badge:"b-tiktok",name:"In-feed video",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV, AVI",dur:"5s–60s (9–15s recommended)"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"Native vertical video in the feed. Like/comment buttons and caption overlay the right side and bottom 25%. Hook in the first 3 seconds.",src:"https://ads.tiktok.com/help/article/tiktok-ad-specs-and-formats"},
-  {id:61,cat:"TikTok",badge:"b-tiktok",name:"TopView",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"5s–60s"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"First ad seen on app open — highest impact premium placement on TikTok.",src:"https://ads.tiktok.com/help/article/tiktok-ad-specs-and-formats"},
-  {id:62,cat:"TikTok",badge:"b-tiktok",name:"Spark ad",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"Any"},safe:{t:15,b:25,s:8,tL:"15%",bL:"25%",sL:"8%",pct:true},note:"Boosted organic post — must use content from an existing TikTok account.",src:"https://ads.tiktok.com/help/article/tiktok-ad-specs-and-formats"},
+  {id:60,cat:"TikTok",badge:"b-tiktok",name:"In-feed video",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV, AVI",dur:"5s–60s (9–15s recommended)"},safe:{t:6,b:17,l:6,r:11,tL:"108px (6%)",bL:"320px (17%)",lL:"60px",rL:"120px",pct:false,px:true},note:"Asymmetric safe zone: right side needs 120px (like/comment/share/bookmark buttons), left only 60px (profile icon). Bottom 320px: captions, audio info, CTA. Hook in first 3 seconds.",src:"https://ads.tiktok.com/help/article/tiktok-ad-specs-and-formats"},
+  {id:61,cat:"TikTok",badge:"b-tiktok",name:"TopView",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"5s–60s"},safe:{t:6,b:17,l:6,r:11,tL:"108px (6%)",bL:"320px (17%)",lL:"60px",rL:"120px",pct:false,px:true},note:"First ad seen on app open. First 3 seconds are full-screen with no UI. After that it transitions to in-feed with same asymmetric safe zone as in-feed ads.",src:"https://ads.tiktok.com/help/article/tiktok-ad-specs-and-formats"},
+  {id:62,cat:"TikTok",badge:"b-tiktok",name:"Spark ad",w:1080,h:1920,ratio:"9:16",device:"Mobile",still:null,video:{fmt:"MP4, MOV",dur:"Any"},safe:{t:6,b:17,l:6,r:11,tL:"108px (6%)",bL:"320px (17%)",lL:"60px",rL:"120px",pct:false,px:true},note:"Boosted organic post. Captions appear slightly higher than standard in-feed ads since they use organic video captions — keep key message in the centre third.",src:"https://ads.tiktok.com/help/article/tiktok-ad-specs-and-formats"},
   {id:600,cat:"TikTok",badge:"b-profile",name:"Profile & cover specs",w:null,h:null,ratio:null,device:null,isProfile:true,
     rows:[
       {label:"Profile photo",val:"400×400 px recommended · displayed as circle · JPG or PNG"},
@@ -281,41 +362,50 @@ function deviceTag(d){
 function buildSVG(f,W,H,labelMode){
   if(!f.safe)return null;
   const s=f.safe;
-  let tF,bF,sF;
-  if(s.pct){tF=s.t/100;bF=s.b/100;sF=s.s/100;}
-  else{const fw=f.w||300,fh=f.h||250;tF=s.t/fh;bF=s.b/fh;sF=s.s/fw;}
-  const tPx=Math.round(tF*H),bPx=Math.round(bF*H),sPx=Math.round(sF*W);
-  const safeH=H-tPx-bPx,safeW=W-sPx*2;
+  const fw=f.w||1080, fh=f.h||1920;
+  let tF,bF,lF,rF;
+  if(s.px){
+    // pixel-based asymmetric: t/b/l/r are percentages of actual dims
+    tF=s.t/100; bF=s.b/100; lF=(s.l||s.s||0)/100; rF=(s.r||s.s||0)/100;
+  } else if(s.pct){
+    tF=s.t/100; bF=s.b/100; lF=s.s/100; rF=s.s/100;
+  } else {
+    tF=s.t/fh; bF=s.b/fh; lF=s.s/fw; rF=s.s/fw;
+  }
+  const tPx=Math.round(tF*H), bPx=Math.round(bF*H);
+  const lPx=Math.round(lF*W), rPx=Math.round(rF*W);
+  const safeH=H-tPx-bPx, safeW=W-lPx-rPx;
   const fs=labelMode==="modal"?10:8;
+  const ff="-apple-system,sans-serif";
   let svg=`<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg" style="display:block">`;
   svg+=`<rect width="${W}" height="${H}" fill="#dedad2"/>`;
-  if(tPx>0)svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="rgba(192,34,10,0.18)"/>`;
-  if(bPx>0)svg+=`<rect x="0" y="${H-bPx}" width="${W}" height="${bPx}" fill="rgba(192,34,10,0.18)"/>`;
-  if(sPx>0){
-    svg+=`<rect x="0" y="${tPx}" width="${sPx}" height="${safeH}" fill="rgba(176,96,0,0.15)"/>`;
-    svg+=`<rect x="${W-sPx}" y="${tPx}" width="${sPx}" height="${safeH}" fill="rgba(176,96,0,0.15)"/>`;
-  }
-  svg+=`<rect x="${sPx}" y="${tPx}" width="${safeW}" height="${safeH}" fill="rgba(45,122,34,0.14)"/>`;
-  svg+=`<rect x="${sPx}" y="${tPx}" width="${safeW}" height="${safeH}" fill="none" stroke="rgba(45,122,34,0.65)" stroke-width="1.5" stroke-dasharray="5,3"/>`;
-  // labels
-  const ff="-apple-system,sans-serif";
+  // danger zones
+  if(tPx>0) svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="rgba(192,34,10,0.18)"/>`;
+  if(bPx>0) svg+=`<rect x="0" y="${H-bPx}" width="${W}" height="${bPx}" fill="rgba(192,34,10,0.18)"/>`;
+  // caution zones (sides) — asymmetric
+  if(lPx>0) svg+=`<rect x="0" y="${tPx}" width="${lPx}" height="${safeH}" fill="rgba(176,96,0,0.15)"/>`;
+  if(rPx>0) svg+=`<rect x="${W-rPx}" y="${tPx}" width="${rPx}" height="${safeH}" fill="rgba(176,96,0,0.22)"/>`;
+  // safe zone
+  svg+=`<rect x="${lPx}" y="${tPx}" width="${safeW}" height="${safeH}" fill="rgba(45,122,34,0.14)"/>`;
+  svg+=`<rect x="${lPx}" y="${tPx}" width="${safeW}" height="${safeH}" fill="none" stroke="rgba(45,122,34,0.65)" stroke-width="1.5" stroke-dasharray="5,3"/>`;
   if(labelMode==="card"&&safeH>=12&&safeW>40){
-    svg+=`<text x="${W/2}" y="${tPx+safeH/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(45,122,34,0.95)" font-weight="600">Safe zone</text>`;
+    svg+=`<text x="${lPx+safeW/2}" y="${tPx+safeH/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(45,122,34,0.95)" font-weight="600">Safe zone</text>`;
   }
   if(labelMode==="modal"){
-    if(tPx>=fs+4)svg+=`<text x="${W/2}" y="${tPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(192,34,10,0.9)" font-weight="500">UI overlay — ${s.tL}</text>`;
-    if(bPx>=fs+4)svg+=`<text x="${W/2}" y="${H-bPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(192,34,10,0.9)" font-weight="500">UI overlay — ${s.bL}</text>`;
+    if(tPx>=fs+4) svg+=`<text x="${W/2}" y="${tPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(192,34,10,0.9)" font-weight="500">UI overlay — ${s.tL}</text>`;
+    if(bPx>=fs+4) svg+=`<text x="${W/2}" y="${H-bPx/2+fs/3}" text-anchor="middle" font-family="${ff}" font-size="${fs}" fill="rgba(192,34,10,0.9)" font-weight="500">UI overlay — ${s.bL}</text>`;
     if(safeH>=fs*3&&safeW>60){
-      svg+=`<text x="${W/2}" y="${tPx+safeH/2-fs*0.6}" text-anchor="middle" font-family="${ff}" font-size="${fs+1}" fill="rgba(45,122,34,1)" font-weight="700">✓ Safe zone</text>`;
-      svg+=`<text x="${W/2}" y="${tPx+safeH/2+fs*0.9}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(45,122,34,0.85)">Logos · Text · CTAs</text>`;
+      svg+=`<text x="${lPx+safeW/2}" y="${tPx+safeH/2-fs*0.6}" text-anchor="middle" font-family="${ff}" font-size="${fs+1}" fill="rgba(45,122,34,1)" font-weight="700">✓ Safe zone</text>`;
+      svg+=`<text x="${lPx+safeW/2}" y="${tPx+safeH/2+fs*0.9}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(45,122,34,0.85)">Logos · Text · CTAs</text>`;
     }
-    if(sPx>18&&safeH>40){
-      svg+=`<text x="${sPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,0.9)" font-weight="500" transform="rotate(-90,${sPx/2},${H/2})">${s.sL}</text>`;
-      svg+=`<text x="${W-sPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,0.9)" font-weight="500" transform="rotate(90,${W-sPx/2},${H/2})">${s.sL}</text>`;
-    }
+    // side labels — show left/right separately if asymmetric
+    const lLabel=s.lL||s.sL||"";
+    const rLabel=s.rL||s.sL||"";
+    if(lPx>14&&safeH>40) svg+=`<text x="${lPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,0.9)" font-weight="500" transform="rotate(-90,${lPx/2},${H/2})">${lLabel}</text>`;
+    if(rPx>14&&safeH>40) svg+=`<text x="${W-rPx/2}" y="${H/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,0.9)" font-weight="500" transform="rotate(90,${W-rPx/2},${H/2})">${rLabel}</text>`;
   }
   svg+=`</svg>`;
-  return{svg,tPx,bPx,sPx,safeH,safeW};
+  return{svg,tPx,bPx,lPx,rPx,safeH,safeW};
 }
 
 function scaledDims(f,maxW,maxH){
@@ -400,8 +490,8 @@ function render(){
   if(!list.length){container.innerHTML=`<div class="grid"><div class="empty">No formats found.</div></div>`;return;}
 
   // Group: separate profile cards from format cards
-  const adCards=list.filter(f=>!f.isProfile&&!f.rows||f.id===20);
-  const profCards=list.filter(f=>(f.isProfile||f.rows)&&f.id!==20);
+  const adCards=list.filter(f=>(!f.isProfile&&!f.rows)||demandGenIds.includes(f.id));
+  const profCards=list.filter(f=>(f.isProfile||f.rows)&&!demandGenIds.includes(f.id));
 
   let html="";
   if(adCards.length){
@@ -421,8 +511,8 @@ function renderTabs(){
 function setTab(c){tab=c;renderTabs();render();}
 document.getElementById("srch").addEventListener("input",e=>{q=e.target.value.toLowerCase();render();});
 
-function openModal(id){
-  const f=F.find(x=>x.id===id);if(!f||(f.isProfile&&!f.rows))return;
+const demandGenIds=[20,21,22,23];function openModal(id){
+  const f=F.find(x=>x.id===id);if(!f||(f.isProfile&&!demandGenIds.includes(f.id)))return;
   const dim=f.w&&f.h?`${f.w} × ${f.h} px`:"Multiple files — see note";
   const rat=f.ratio||"—";
   let szSection="";
@@ -430,23 +520,28 @@ function openModal(id){
     const{w,h}=scaledDims(f,380,235);
     const d=buildSVG(f,w,h,"modal");
     if(d){
-      const fw=f.w||1920,fh=f.h||1080;
-      const tA=f.safe.pct?Math.round(fh*f.safe.t/100)+"px":f.safe.tL;
-      const bA=f.safe.pct?Math.round(fh*f.safe.b/100)+"px":f.safe.bL;
-      const sA=f.safe.pct?Math.round(fw*f.safe.s/100)+"px":f.safe.sL;
-      const swA=f.safe.pct?Math.round(fw*(1-2*f.safe.s/100))+"px":(fw-2*f.safe.s)+"px";
-      const shA=f.safe.pct?Math.round(fh*(1-f.safe.t/100-f.safe.b/100))+"px":(fh-f.safe.t-f.safe.b)+"px";
+      const fw=f.w||1080,fh=f.h||1920;
+      const tA=f.safe.tL;
+      const bA=f.safe.bL;
+      const isAsym=f.safe.px&&f.safe.lL&&f.safe.rL&&f.safe.lL!==f.safe.rL;
+      const sideDesc=isAsym
+        ? `Left ${f.safe.lL} · Right ${f.safe.rL} (asymmetric — right side has more UI)`
+        : `${f.safe.sL||f.safe.lL||""} each side`;
+      // safe zone size
+      const lPct=f.safe.l||f.safe.s||0, rPct=f.safe.r||f.safe.s||0;
+      const swA=Math.round(fw*(1-(lPct+rPct)/100))+"px";
+      const shA=Math.round(fh*(1-(f.safe.t+f.safe.b)/100))+"px";
       szSection=`<div style="margin-bottom:1.25rem">
         <div class="modal-sz-title">Safe zone diagram — proportional to actual format</div>
         <div class="modal-sz-wrap"><div class="modal-canvas" style="width:${w}px;height:${h}px;border-radius:6px;overflow:hidden">${d.svg}</div></div>
         <div class="zone-explanations">
           <div class="zone-box danger"><div class="zone-swatch danger"></div><div>
             <div class="zone-tt">UI overlay zone — keep clear of logos and text</div>
-            <div class="zone-td">Top ${f.safe.tL} (≈${tA}) and bottom ${f.safe.bL} (≈${bA}) are covered by platform UI — buttons, captions, progress bars, CTAs. Anything placed here risks being hidden.</div>
+            <div class="zone-td">Top ${tA} and bottom ${bA} are covered by platform UI — buttons, captions, progress bars, CTAs. Anything placed here risks being hidden or cropped.</div>
           </div></div>
           <div class="zone-box caution"><div class="zone-swatch caution"></div><div>
-            <div class="zone-tt">Side margins — use with caution</div>
-            <div class="zone-td">${f.safe.sL} each side (≈${sA}). Backgrounds and non-critical visuals are fine here, but avoid important elements — cropping can occur across device sizes.</div>
+            <div class="zone-tt">Side margins — ${isAsym?"asymmetric":"use with caution"}</div>
+            <div class="zone-td">${sideDesc}. ${isAsym?"The right side has significantly more UI elements (like/comment/share/bookmark buttons) than the left — design with this asymmetry in mind.":"Backgrounds and non-critical visuals are fine here, but avoid important elements."}</div>
           </div></div>
           <div class="zone-box safe"><div class="zone-swatch safe"></div><div>
             <div class="zone-tt">Safe zone — all logos, text and CTAs must sit here</div>
