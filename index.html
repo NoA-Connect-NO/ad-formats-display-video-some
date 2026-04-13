@@ -141,7 +141,25 @@ const F=[
   {id:6,cat:"Google Display",badge:"b-google",name:"Billboard",w:970,h:250,ratio:"97:25",device:"Desktop",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:8,b:8,s:12,tL:"8px",bL:"8px",sL:"12px",pct:false},note:"Premium large-format, typically at the top of premium publisher pages.",src:null},
   {id:7,cat:"Google Display",badge:"b-google",name:"Large mobile banner",w:320,h:100,ratio:"16:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:4,b:4,s:6,tL:"4px",bL:"4px",sL:"6px",pct:false},note:"Mobile web, above the fold. Preferred over the slim 320×50.",src:null},
   {id:8,cat:"Google Display",badge:"b-google",name:"Mobile banner",w:320,h:50,ratio:"32:5",device:"Mobile",still:{fmt:"JPG, PNG, GIF, HTML5",kb:"150KB"},video:null,safe:{t:3,b:3,s:5,tL:"3px",bL:"3px",sL:"5px",pct:false},note:"Slim mobile banner. Most compact option.",src:null},
-  {id:20,cat:"Google Display",badge:"b-responsive",name:"Responsive display ad",w:null,h:null,ratio:null,device:"All",still:{fmt:"JPG, PNG (no GIF/HTML5)",kb:"5MB per asset"},video:{fmt:"MP4 via YouTube URL",dur:"Up to 30s"},safe:null,note:"Asset-based format — upload landscape (1200×628), square (1200×1200), and optional portrait (960×1200) images, plus logo, headlines & descriptions. Google's algorithm assembles and tests combinations automatically. Tip: also run fixed-size uploads if brand guidelines are strict.",src:null},
+  {id:20,cat:"Google Display",badge:"b-responsive",name:"Responsive display ad",w:null,h:null,ratio:null,device:"All",
+    isProfile:false,
+    still:{fmt:"JPG, PNG only — no GIF or HTML5",kb:"Max 5MB per image asset"},
+    video:{fmt:"YouTube video URL",dur:"Up to 30s"},
+    safe:null,
+    rows:[
+      {label:"Landscape image (required)",val:"1200×628 px recommended · min 600×314 px · 1.91:1 ratio"},
+      {label:"Square image (required)",val:"1200×1200 px recommended · min 300×300 px · 1:1 ratio"},
+      {label:"Portrait image (optional)",val:"1200×1500 px recommended · min 320×400 px · 4:5 ratio — adds vertical placement coverage"},
+      {label:"Square logo (required)",val:"1200×1200 px recommended · min 128×128 px · transparent background preferred"},
+      {label:"Landscape logo (optional)",val:"1200×300 px recommended · 4:1 ratio · transparent background"},
+      {label:"Short headline",val:"Max 30 characters — provide up to 5"},
+      {label:"Long headline",val:"Max 90 characters — provide 1"},
+      {label:"Description",val:"Max 90 characters — provide up to 5"},
+      {label:"Safe area",val:"Keep all logos, text and CTAs within centre 80% of each image — edges risk cropping"},
+      {label:"Best practice",val:"Upload 5+ image variations per ratio — Google ML tests combinations and optimises"},
+    ],
+    note:"Asset-based format — you provide the building blocks, Google's algorithm assembles and tests combinations across the entire Display Network automatically. Run fixed-size uploaded banners alongside if you have strict brand guidelines or need guaranteed placement control.",
+    src:"https://support.google.com/google-ads/answer/7031480"},
   // ── YOUTUBE ───────────────────────────────────────────────────────────
   {id:9,cat:"YouTube",badge:"b-youtube",name:"Skippable in-stream",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Min 12s — skip after 5s"},safe:{t:14,b:35,s:10,tL:"14%",bL:"35%",sL:"10%",pct:true},note:"Pre/mid/post-roll. Key message must land in the first 5 seconds. Bottom 35% is heavily overlaid by skip button and info cards.",src:null},
   {id:10,cat:"YouTube",badge:"b-youtube",name:"Non-skippable in-stream",w:1920,h:1080,ratio:"16:9",device:"All",still:null,video:{fmt:"MP4, MOV (H.264)",dur:"Max 15s"},safe:{t:14,b:20,s:10,tL:"14%",bL:"20%",sL:"10%",pct:true},note:"No skip — every second must earn attention.",src:null},
@@ -330,11 +348,11 @@ function specBlock(f){
 }
 
 function cardHTML(f){
-  if(f.isProfile){
+  if(f.isProfile||f.rows){
     const rows=f.rows.map(r=>`<div class="prow"><span class="prow-label">${r.label}</span><span class="prow-val">${r.val}</span></div>`).join("");
     return`<div class="card profile-card">
       <div class="card-header">
-        <span class="card-title">${f.name}<span class="tag-profile">profile &amp; branding</span></span>
+        <span class="card-title">${f.name}<span class="tag-profile">${f.isProfile?"profile &amp; branding":"asset specs"}</span></span>
         <span class="badge ${f.badge}">${f.cat}</span>
       </div>
       <div class="profile-rows">${rows}</div>
@@ -382,8 +400,8 @@ function render(){
   if(!list.length){container.innerHTML=`<div class="grid"><div class="empty">No formats found.</div></div>`;return;}
 
   // Group: separate profile cards from format cards
-  const adCards=list.filter(f=>!f.isProfile);
-  const profCards=list.filter(f=>f.isProfile);
+  const adCards=list.filter(f=>!f.isProfile&&!f.rows||f.id===20);
+  const profCards=list.filter(f=>(f.isProfile||f.rows)&&f.id!==20);
 
   let html="";
   if(adCards.length){
@@ -404,7 +422,7 @@ function setTab(c){tab=c;renderTabs();render();}
 document.getElementById("srch").addEventListener("input",e=>{q=e.target.value.toLowerCase();render();});
 
 function openModal(id){
-  const f=F.find(x=>x.id===id);if(!f||f.isProfile)return;
+  const f=F.find(x=>x.id===id);if(!f||(f.isProfile&&!f.rows))return;
   const dim=f.w&&f.h?`${f.w} × ${f.h} px`:"Multiple files — see note";
   const rat=f.ratio||"—";
   let szSection="";
