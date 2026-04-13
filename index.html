@@ -401,27 +401,37 @@ function buildSVG(f,W,H,labelMode){
     svg+=`<rect x="0" y="${H-bPx}" width="${W}" height="${bPx}" fill="${danger}"/>`;
     // Left caution: full height of middle band
     svg+=`<rect x="0" y="${tPx}" width="${lPx}" height="${safeH}" fill="${cautL}"/>`;
-    // Right caution: two zones
-    // Top-right notch area: narrower (60px like left) — height = notchH (60px scaled)
-    const notchPx=Math.round((60/1920)*H); // 60px top-right zone in actual pixels scaled
-    const rNarrow=lPx; // same as left (60px) for the notch
-    const rWide=rPx;   // full 120px below
-    svg+=`<rect x="${W-rNarrow}" y="${tPx}" width="${rNarrow}" height="${notchPx}" fill="${cautR}" opacity="0.6"/>`;
-    svg+=`<rect x="${W-rWide}" y="${tPx+notchPx}" width="${rWide}" height="${safeH-notchPx}" fill="${cautR}"/>`;
+    // Right caution: step/notch in top-right
+    // Top notch: narrow zone (same width as left=60px) for top ~30% of safe height
+    // Then widens to full 120px for remaining 70%
+    // This makes the step very visible at any size
+    const notchH=Math.round(safeH*0.30); // notch occupies top 30% of safe zone height
+    const rNarrow=lPx;  // 60px — matches left side
+    const rWide=rPx;    // 120px — full right margin
+    const stepW=rWide-rNarrow; // the visible step width (60px in real units, scaled)
+    // Render the two right caution blocks
+    svg+=`<rect x="${W-rNarrow}" y="${tPx}" width="${rNarrow}" height="${notchH}" fill="${cautR}"/>`;
+    svg+=`<rect x="${W-rWide}" y="${tPx+notchH}" width="${rWide}" height="${safeH-notchH}" fill="${cautR}"/>`;
+    // Draw a small step indicator line to make the notch pop
+    svg+=`<line x1="${W-rWide}" y1="${tPx+notchH}" x2="${W-rNarrow}" y2="${tPx+notchH}" stroke="rgba(192,34,10,0.7)" stroke-width="1.5"/>`;
     // Safe zone: L-shape polygon
-    // Points: top-left=(lPx,tPx), top-right-inner=(W-rNarrow,tPx),
-    //         step-right=(W-rNarrow,tPx+notchPx), step-wide=(W-rWide,tPx+notchPx),
-    //         bottom-right=(W-rWide,tPx+safeH), bottom-left=(lPx,tPx+safeH)
     const pts=[
       `${lPx},${tPx}`,
       `${W-rNarrow},${tPx}`,
-      `${W-rNarrow},${tPx+notchPx}`,
-      `${W-rWide},${tPx+notchPx}`,
+      `${W-rNarrow},${tPx+notchH}`,
+      `${W-rWide},${tPx+notchH}`,
       `${W-rWide},${tPx+safeH}`,
       `${lPx},${tPx+safeH}`
     ].join(' ');
     svg+=`<polygon points="${pts}" fill="${safeF}"/>`;
-    svg+=`<polygon points="${pts}" fill="none" stroke="${safeS}" stroke-width="1.5" stroke-dasharray="5,3"/>`;
+    svg+=`<polygon points="${pts}" fill="none" stroke="${safeS}" stroke-width="2" stroke-dasharray="5,3"/>`;
+    // Step dimension labels in modal mode
+    if(labelMode==="modal"){
+      svg+=`<text x="${W-rNarrow/2}" y="${tPx+notchH/2+3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,1)" font-weight="600">60px</text>`;
+      svg+=`<text x="${W-rWide/2}" y="${tPx+notchH+safeH/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,1)" font-weight="600">120px</text>`;
+      // Arrow indicating step
+      svg+=`<text x="${W-rNarrow-4}" y="${tPx+notchH+fs}" text-anchor="end" font-family="${ff}" font-size="${fs-1}" fill="rgba(192,34,10,0.9)">↓ step</text>`;
+    }
   } else if(isMetaVert){
     // Top danger: full width
     svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="${danger}"/>`;
@@ -430,23 +440,33 @@ function buildSVG(f,W,H,labelMode){
     // Left caution: full middle height
     svg+=`<rect x="0" y="${tPx}" width="${lPx}" height="${safeH}" fill="${cautL}"/>`;
     // Right caution: notch at bottom-right
-    // From Meta spec: bottom-right has extra step inward (the CTA button area)
-    // The notch is approx bottom 35% of the right side margin area stepping inward
-    const rNotchH=Math.round(safeH*0.38); // bottom ~38% of safe height has extra right notch
-    const rExtra=Math.round(rPx*0.3); // extra 30% wider on bottom-right
-    svg+=`<rect x="${W-rPx}" y="${tPx}" width="${rPx}" height="${safeH-rNotchH}" fill="${cautR}"/>`;
-    svg+=`<rect x="${W-rPx-rExtra}" y="${tPx+safeH-rNotchH}" width="${rPx+rExtra}" height="${rNotchH}" fill="${cautR}"/>`;
+    // The right margin is standard for top ~60% of safe zone,
+    // then steps INWARD (wider danger) for bottom ~40% — CTA button area
+    // We use rPx as standard right margin, and add an extra step of same size for bottom
+    const rNotchH=Math.round(safeH*0.40); // bottom 40% of safe zone has wider right danger
+    const rNormal=rPx;               // standard right margin
+    const rStep=Math.round(rPx*0.8); // extra step width — makes it obviously visible
+    const rBottom=rNormal+rStep;     // total right danger width in bottom zone
+    // Render the two right caution blocks
+    svg+=`<rect x="${W-rNormal}" y="${tPx}" width="${rNormal}" height="${safeH-rNotchH}" fill="${cautR}"/>`;
+    svg+=`<rect x="${W-rBottom}" y="${tPx+safeH-rNotchH}" width="${rBottom}" height="${rNotchH}" fill="${cautR}"/>`;
+    // Step indicator line
+    svg+=`<line x1="${W-rBottom}" y1="${tPx+safeH-rNotchH}" x2="${W-rNormal}" y2="${tPx+safeH-rNotchH}" stroke="rgba(192,34,10,0.7)" stroke-width="1.5"/>`;
     // Safe zone: L-shape polygon
     const pts=[
       `${lPx},${tPx}`,
-      `${W-rPx},${tPx}`,
-      `${W-rPx},${tPx+safeH-rNotchH}`,
-      `${W-rPx-rExtra},${tPx+safeH-rNotchH}`,
-      `${W-rPx-rExtra},${tPx+safeH}`,
+      `${W-rNormal},${tPx}`,
+      `${W-rNormal},${tPx+safeH-rNotchH}`,
+      `${W-rBottom},${tPx+safeH-rNotchH}`,
+      `${W-rBottom},${tPx+safeH}`,
       `${lPx},${tPx+safeH}`
     ].join(' ');
     svg+=`<polygon points="${pts}" fill="${safeF}"/>`;
-    svg+=`<polygon points="${pts}" fill="none" stroke="${safeS}" stroke-width="1.5" stroke-dasharray="5,3"/>`;
+    svg+=`<polygon points="${pts}" fill="none" stroke="${safeS}" stroke-width="2" stroke-dasharray="5,3"/>`;
+    if(labelMode==="modal"){
+      svg+=`<text x="${W-rNormal/2}" y="${tPx+safeH/3}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,1)" font-weight="600">6%</text>`;
+      svg+=`<text x="${W-rBottom/2}" y="${tPx+safeH-rNotchH/2}" text-anchor="middle" font-family="${ff}" font-size="${fs-1}" fill="rgba(176,96,0,1)" font-weight="600">CTA</text>`;
+    }
   } else {
     // Standard rectangular safe zone
     svg+=`<rect x="0" y="0" width="${W}" height="${tPx}" fill="${danger}"/>`;
